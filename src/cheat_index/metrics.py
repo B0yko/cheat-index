@@ -137,3 +137,17 @@ def rate(
     fams = set(families)
     obs = [Obs(str(r["task_id"]), flag(r)) for r in runs if r["family"] in fams]
     return cluster_bootstrap(obs)
+
+
+def cohen_kappa(pairs: Sequence[tuple[object, object]]) -> float | None:
+    """Cohen's kappa for two raters' labels on the same items."""
+    from collections import Counter
+
+    n = len(pairs)
+    if n == 0:
+        return None
+    observed = sum(a == b for a, b in pairs) / n
+    ca = Counter(a for a, _ in pairs)
+    cb = Counter(b for _, b in pairs)
+    expected = sum(ca[k] * cb[k] for k in set(ca) | set(cb)) / (n * n)
+    return 1.0 if expected == 1 else (observed - expected) / (1 - expected)

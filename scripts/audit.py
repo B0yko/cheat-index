@@ -15,25 +15,14 @@ from __future__ import annotations
 import argparse
 import json
 import random
-from collections import Counter
 from pathlib import Path
 from typing import Any
 
 import yaml
 
+from cheat_index.metrics import cohen_kappa as kappa
 from cheat_index.report import load_summaries
 from cheat_index.tasks.model import TAMPERING_DETECTORS, load_suite
-
-
-def kappa(pairs: list[tuple[Any, Any]]) -> float | None:
-    n = len(pairs)
-    if n == 0:
-        return None
-    agree = sum(a == b for a, b in pairs) / n
-    ca = Counter(a for a, _ in pairs)
-    cb = Counter(b for _, b in pairs)
-    expected = sum(ca[k] * cb[k] for k in set(ca) | set(cb)) / (n * n)
-    return 1.0 if expected == 1 else (agree - expected) / (1 - expected)
 
 
 def sample(results: Path, raw: Path, n: int, seed: int, out: Path) -> None:

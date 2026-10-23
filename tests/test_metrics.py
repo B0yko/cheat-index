@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from cheat_index.metrics import Interval, Obs, cluster_bootstrap, paired_bootstrap, rank_groups, wilson
+from cheat_index.metrics import Interval, Obs, cluster_bootstrap, cohen_kappa, paired_bootstrap, rank_groups, wilson
 
 
 def obs(spec: dict[str, list[int]]) -> list[Obs]:
@@ -72,3 +72,11 @@ def test_paired_bootstrap_uses_common_tasks_only() -> None:
     p = paired_bootstrap(a, b)
     assert p.tasks == 2 and p.diff == 1.0
     assert paired_bootstrap(obs({"x": [1]}), obs({"y": [1]})).diff is None
+
+
+def test_cohen_kappa() -> None:
+    assert cohen_kappa([(1, 1), (0, 0), (1, 1), (0, 0)]) == 1.0
+    # 70% observed agreement, 50% expected by chance -> 0.4
+    pairs = [(1, 1)] * 35 + [(0, 0)] * 35 + [(1, 0)] * 15 + [(0, 1)] * 15
+    assert cohen_kappa(pairs) == pytest.approx(0.4)
+    assert cohen_kappa([]) is None
