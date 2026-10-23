@@ -31,6 +31,10 @@ class BatchResult:
     spent_usd: float = 0.0
 
 
+def _say(text: str) -> None:
+    print(text, flush=True)
+
+
 def run_dir_for(out: Path, cfg: RunConfig, spec: RunSpec) -> Path:
     return out / cfg.slug() / spec.run_id
 
@@ -59,10 +63,11 @@ def run_batch(
     concurrency: int = 4,
     hardware: str = "",
     docker: Docker | None = None,
-    progress: Progress = print,
+    progress: Progress | None = None,
     score: Callable[[Task, Path], None] | None = None,
 ) -> BatchResult:
     docker = docker or Docker()
+    progress = progress or _say
     adapter = get_adapter(cfg.agent)
     specs = [RunSpec(t, cfg, r) for r in range(1, k + 1) for t in tasks]
     result = BatchResult()

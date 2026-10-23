@@ -132,6 +132,7 @@ class UsageParser:
         self.cost: float | None = None
         self.model: str | None = None
         self.generation_id: str | None = None
+        self.provider: str | None = None
 
     def feed(self, chunk: bytes) -> None:
         self.buf += chunk
@@ -172,6 +173,9 @@ class UsageParser:
             model = container.get("model")
             if isinstance(model, str) and model:
                 self.model = model
+            provider = container.get("provider")
+            if isinstance(provider, str) and provider:
+                self.provider = provider
             usage = container.get("usage")
             if isinstance(usage, dict):
                 self._usage(usage)
@@ -355,6 +359,7 @@ class Gateway:
         rec.cached_tokens = parser.cached_tokens
         rec.cost_reported = parser.cost
         rec.generation_id = parser.generation_id
+        rec.provider = parser.provider
         rec.cost_estimated = self._estimate(model, parser.prompt_tokens, parser.completion_tokens, parser.cached_tokens)
         return True
 
@@ -404,24 +409,27 @@ class Gateway:
         return 404, _error("unknown admin path")
 
     async def reconcile(self, run: RunState) -> None:
-        for rec in run.requests:
-            if not rec.generation_id or rec.cost_reconciled is not None or rec.status != 200:
-                continue
-            for attempt in range(4):
-                resp = await self.client.get(
-                    f"{self.upstream}/v1/generation",
-                    params={"id": rec.generation_id},
-                    headers={"authorization": f"Bearer {self._api_key}"},
-                )
-                if resp.status_code == 200:
-                    data = resp.json().get("data") or {}
-                    cost = data.get("total_cost")
-                    if isinstance(cost, int | float):
-                        rec.cost_reconciled = float(cost)
-                    if isinstance(data.get("provider_name"), str):
-                        rec.provider = data["provider_name"]
-                    break
-                await asyncio.sleep(1.5 * (attempt + 1))
+        """Look up exact costs for requests whose response did not report one."""
+        todo = [r for r in run.requests if r.generation_id and r.cost_reported is None and r.cost_reconciled is None
+                and r.status == 200]  # fmt: skip
+        await asyncio.gather(*(self._lookup(r) for r in todo))
+
+    async def _lookup(self, rec: RequestRecord) -> None:
+        for attempt in range(4):
+            resp = await self.client.get(
+                f"{self.upstream}/v1/generation",
+                params={"id": rec.generation_id},
+                headers={"authorization": f"Bearer {self._api_key}"},
+            )
+            if resp.status_code == 200:
+                data = resp.json().get("data") or {}
+                cost = data.get("total_cost")
+                if isinstance(cost, int | float):
+                    rec.cost_reconciled = float(cost)
+                if isinstance(data.get("provider_name"), str):
+                    rec.provider = data["provider_name"]
+                return
+            await asyncio.sleep(1.5 * (attempt + 1))
 
 
 def _error(message: str) -> dict[str, Any]:

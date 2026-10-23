@@ -128,6 +128,7 @@ def test_anthropic_stream_usage_and_estimate_then_reconcile() -> None:
     assert before["cost_source"] == "estimate"
     assert abs(before["cost_usd"] - (1000 * 1e-6 + 40 * 2e-6)) < 1e-12
     assert after["cost_usd"] == 0.002 and after["cost_source"] == "provider"
+    assert after["providers"] == []
 
 
 def test_cost_cap_cuts_off_run() -> None:
