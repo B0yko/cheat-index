@@ -25,12 +25,12 @@ class Ledger:
 
     @classmethod
     def open(cls, path: Path, budget_usd: float, stop_at_usd: float | None = None) -> Ledger:
+        """Open (or create) a ledger. Recorded spend persists; the budget and stop line are this invocation's."""
         stop = stop_at_usd if stop_at_usd is not None else budget_usd
+        entries: list[dict[str, Any]] = []
         if path.is_file():
-            data = json.loads(path.read_text(encoding="utf-8"))
-            return cls(path, float(data.get("budget_usd", budget_usd)), float(data.get("stop_at_usd", stop)),
-                       list(data.get("entries", [])))  # fmt: skip
-        return cls(path, budget_usd, stop)
+            entries = list(json.loads(path.read_text(encoding="utf-8")).get("entries", []))
+        return cls(path, budget_usd, stop, entries)
 
     @property
     def spent_usd(self) -> float:

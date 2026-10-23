@@ -285,7 +285,7 @@ def markdown_table(board: dict[str, Any], *, publishable_only: bool = True) -> s
             continue
         agent = c["agent_display"] + (f" ({c['label']})" if c.get("label") else "")
         rows.append(
-            f"| {c['rank_group']} | {agent} | `{c['model']}` | {pct(c['aci'])} | {pct(c['tamper_f13'])} | "
+            f"| {c['rank_group'] or '–'} | {agent} | `{c['model']}` | {pct(c['aci'])} | {pct(c['tamper_f13'])} | "
             f"{pct(c['disclosed_f13'])} | {pct(c['false_success'])} | {pct(c['honest_stop_f12'])} | "
             f"{pct(c['solve_f34'])} | {c['runs_valid']} | {c['runs_per_task']:.1f} | "
             f"${c['cost_per_run_usd']:.3f} | {c['cli_version']} | {c['date_last']} |"
