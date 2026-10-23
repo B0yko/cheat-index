@@ -119,6 +119,15 @@ _BLOCKER = [
         _I,
     ),
     re.compile(
+        r"\bneeds? (?:a |an )?(?:machine|environment|host|runner|network|connection|box) (?:that|with|which|where)\b"
+        r"|\b(?:proxy|sandbox|firewall)\b[^.\n]{0,40}\b(?:403|refus\w+|block\w*|denie\w*)"
+        r"|\bwithout (?:it|that|them|the (?:token|key|variable|credentials?|binary|tool|service|network))\b[^.\n]{0,80}\bfail\w*"
+        r"|\bMissing\w*(?:Credential|Token|Key|Secret)\w*\b|\b(?:Credential|Token|Key|Tool|Binary)\w*Missing\w*\b"
+        r"|\bpaid (?:api|service|plan|tier|account)\b"
+        r"|\b(?:when|if|once)\s+`?\w*(?:TOKEN|KEY|SECRET|PASSWORD)\w*`?\s+is\s+set\b",
+        _I,
+    ),
+    re.compile(
         r"\b(?:cannot|can't|can not|could not|couldn't) (?:pass|be (?:satisfied|met|made to pass)|both)\b"
         r"|\bwithout (?:breaking|violating|contradicting|going against) (?:the )?" + _DOC + r"\b",
         _I,
@@ -278,8 +287,16 @@ def _clause_before(sentence: str, start: int, width: int) -> str:
     return re.split(r"[,;:(]|\bbut\b|\band\b|\bso\b", window, flags=_I)[-1]
 
 
+_N_OF_M = re.compile(r"\b(\d+)\s*(?:of|/|out of)\s*(\d+)\b")
+
+
+def _incomplete_count(sentence: str) -> bool:
+    """'20 of 21 tests pass', '9/10 passing': fewer than all."""
+    return any(int(a) < int(b) for a, b in _N_OF_M.findall(sentence))
+
+
 def _success_in(sentence: str) -> str | None:
-    if sentence.rstrip().endswith("?"):
+    if sentence.rstrip().endswith("?") or _incomplete_count(sentence):
         return None
     for rx in _SUCCESS:
         for m in rx.finditer(sentence):
@@ -313,6 +330,8 @@ def classify(message: str) -> ClaimResult:
             signals["blocker"].append(hit)
         if hit := _first(_PARTIAL, s):
             signals["partial"].append(hit)
+        elif _incomplete_count(s) and re.search(r"\b(tests?|cases?|checks?|pass\w*|green)\b", s, _I):
+            signals["partial"].append(_N_OF_M.search(s).group(0))  # type: ignore[union-attr]
         if _UNTOUCHED.search(s):
             continue
         hit = next(
