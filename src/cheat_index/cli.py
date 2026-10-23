@@ -78,6 +78,97 @@ def _cmd_images_build(args: argparse.Namespace) -> int:
     return images_build_command(args)
 
 
+def _excluded_detectors(paths: list[Path]) -> dict[str, str]:
+    """Detectors that failed the release gates, read from a quality.json next to the results."""
+    import json
+
+    for p in paths:
+        q = (p if p.is_dir() else p.parent) / "quality.json"
+        if q.is_file():
+            data = json.loads(q.read_text(encoding="utf-8"))
+            return dict(data.get("excluded_from_index") or {})
+    return {}
+
+
+def _board(paths: list[Path]) -> dict[str, object]:
+    from cheat_index.report import build_leaderboard, load_summaries
+
+    summaries = load_summaries(paths)
+    if not summaries:
+        raise TaskError(f"no run summaries found under {', '.join(map(str, paths))}")
+    return build_leaderboard(
+        summaries, excluded_detectors=_excluded_detectors(paths), source=", ".join(map(str, paths))
+    )
+
+
+def _cmd_score(args: argparse.Namespace) -> int:
+    import json
+
+    from cheat_index.report import markdown_table, ordered_statements
+
+    board = _board(args.results)
+    if args.json:
+        args.json.write_text(json.dumps(board, indent=1), encoding="utf-8")
+    print(markdown_table(board, publishable_only=False))
+    for c in board["configs"]:  # type: ignore[attr-defined]
+        if not c["publishable"]:
+            print(f"not publishable: {c['slug']}: {'; '.join(c['not_publishable_reasons'])}")
+    for line in ordered_statements(board):
+        print(line)
+    if board["excluded_detectors"]:
+        print(f"ACI computed without: {board['excluded_detectors']}")
+    return 0
+
+
+def _cmd_report(args: argparse.Namespace) -> int:
+    import json
+
+    from cheat_index.report import markdown_report
+
+    board = _board(args.results)
+    if args.format == "json":
+        text = json.dumps(board, indent=1)
+    elif args.format == "md":
+        text = markdown_report(board)
+    else:
+        from cheat_index.site.build import render_report_html
+
+        text = render_report_html(board)
+    if args.out:
+        args.out.write_text(text, encoding="utf-8")
+    else:
+        print(text)
+    return 0
+
+
+def _cmd_export_traces(args: argparse.Namespace) -> int:
+    from cheat_index.traces import export_traces
+
+    n = export_traces(args.results, args.out)
+    print(f"wrote {n} agent-trace/v1 traces to {args.out}")
+    return 0
+
+
+def _cmd_verify(args: argparse.Namespace) -> int:
+    from cheat_index.reverify import reverify
+
+    return reverify(args.run_dir)
+
+
+def _cmd_demo(args: argparse.Namespace) -> int:
+    from cheat_index.demo import run_demo
+
+    return run_demo()
+
+
+def _cmd_site_build(args: argparse.Namespace) -> int:
+    from cheat_index.site.build import build_site
+
+    pages = build_site(args.results, args.out)
+    print(f"wrote {pages} pages to {args.out}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(prog="cheat-index", description="The Agent Cheat Index.")
     ap.add_argument("--version", action="version", version=f"cheat-index {__version__}")
@@ -115,6 +206,36 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--hardware", default="", help="hardware description stored with every run")
     p.add_argument("--yes", action="store_true", help="do not ask for confirmation")
     p.set_defaults(func=_cmd_run)
+
+    p = sub.add_parser("score", help="score run summaries and print the leaderboard")
+    p.add_argument("results", nargs="+", type=Path)
+    p.add_argument("--json", type=Path, help="also write the leaderboard JSON here")
+    p.set_defaults(func=_cmd_score)
+
+    p = sub.add_parser("report", help="write a report from run summaries")
+    p.add_argument("results", nargs="+", type=Path)
+    p.add_argument("--format", choices=["md", "json", "html"], default="md")
+    p.add_argument("--out", type=Path)
+    p.set_defaults(func=_cmd_report)
+
+    p = sub.add_parser("export-traces", help="export runs as agent-trace/v1 JSON Lines")
+    p.add_argument("results", nargs="+", type=Path)
+    p.add_argument("--out", type=Path, required=True)
+    p.set_defaults(func=_cmd_export_traces)
+
+    p = sub.add_parser("verify", help="re-verify and re-score one recorded run directory")
+    p.add_argument("run_dir", type=Path)
+    p.set_defaults(func=_cmd_verify)
+
+    p = sub.add_parser("demo", help="re-score bundled real runs and print a mini leaderboard (no Docker, no key)")
+    p.set_defaults(func=_cmd_demo)
+
+    site = sub.add_parser("site", help="build the static leaderboard site")
+    ssub = site.add_subparsers(dest="site_command", required=True)
+    p = ssub.add_parser("build", help="render results into a static site")
+    p.add_argument("results", nargs="+", type=Path)
+    p.add_argument("--out", type=Path, default=Path("site-dist"))
+    p.set_defaults(func=_cmd_site_build)
 
     p = sub.add_parser("doctor", help="check the container runtime, images, CLIs, proxy, key and budget")
     p.add_argument("--out", type=Path, default=Path("cheat-index-runs"))
