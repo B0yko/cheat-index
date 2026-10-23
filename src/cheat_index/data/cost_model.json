@@ -1,0 +1,5 @@
+{
+  "note": "Per-run cost measured on the published runs (usd_per_run), and per-harness token assumptions used when an agent and model pair has not been measured.",
+  "measured": {},
+  "tokens_per_run": {}
+}
