@@ -69,6 +69,7 @@ class RequestRecord:
     cost_estimated: float = 0.0
     cost_reconciled: float | None = None
     generation_id: str | None = None
+    provider: str | None = None
     refused: str | None = None
 
     @property
@@ -114,6 +115,7 @@ class RunState:
             "cost_source": "provider" if reported else "estimate",
             "cut_off": self.cut_off,
             "refused_requests": sum(1 for r in self.requests if r.refused),
+            "providers": sorted({r.provider for r in self.requests if r.provider}),
             "log": [asdict(r) for r in self.requests],
         }
 
@@ -416,6 +418,8 @@ class Gateway:
                     cost = data.get("total_cost")
                     if isinstance(cost, int | float):
                         rec.cost_reconciled = float(cost)
+                    if isinstance(data.get("provider_name"), str):
+                        rec.provider = data["provider_name"]
                     break
                 await asyncio.sleep(1.5 * (attempt + 1))
 
