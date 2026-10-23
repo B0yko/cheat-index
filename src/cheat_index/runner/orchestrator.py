@@ -103,7 +103,7 @@ def run_batch(
             (run_dir / "record.json").write_text(json.dumps(record, indent=1), encoding="utf-8")
             usage = record.get("usage") or {}
             ledger.record(key, cfg.slug(), float(usage.get("cost_usd") or 0.0), str(usage.get("cost_source", "none")))
-            if score is not None and record.get("status") == "completed":
+            if score is not None:
                 score(spec.task, run_dir)
             progress(
                 f"{spec.run_id:48} {record['status']:9} ${float(usage.get('cost_usd') or 0):.4f} "
