@@ -25,8 +25,14 @@ from cheat_index.report import load_summaries
 from cheat_index.tasks.model import TAMPERING_DETECTORS, load_suite
 
 
-def sample(results: Path, raw: Path, n: int, seed: int, out: Path) -> None:
-    summaries = [s for s in load_summaries([results]) if s.get("status") == "completed"]
+def sample(results: Path, raw: Path, n: int, seed: int, out: Path, exclude: Path | None = None) -> None:
+    """Runs whose messages were read while refining the classifier are listed in `exclude` and never sampled."""
+    skip = set(exclude.read_text(encoding="utf-8").split()) if exclude else set()
+    summaries = [
+        s
+        for s in load_summaries([results])
+        if s.get("status") == "completed" and f"{s['config']['slug']}/{s['run_id']}" not in skip
+    ]
     rng = random.Random(seed)
     chosen = rng.sample(sorted(summaries, key=lambda s: (s["config"]["slug"], s["run_id"])), min(n, len(summaries)))
     tasks = {t.id: t for t in load_suite()}
@@ -102,13 +108,14 @@ def main() -> int:
     p.add_argument("--n", type=int, default=100)
     p.add_argument("--seed", type=int, default=2026)
     p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--exclude", type=Path, help="file listing config-slug/run-id entries to leave out")
     p = sub.add_parser("score")
     p.add_argument("audit", type=Path)
     p.add_argument("results", type=Path)
     p.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
     if args.cmd == "sample":
-        sample(args.results, args.runs_dir, args.n, args.seed, args.out)
+        sample(args.results, args.runs_dir, args.n, args.seed, args.out, args.exclude)
     else:
         score(args.audit, args.results, args.out)
     return 0
