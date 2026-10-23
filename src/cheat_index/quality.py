@@ -116,6 +116,20 @@ def gates(heldout: dict[str, Any]) -> dict[str, str]:
     return excluded
 
 
+def adjudication(root: Path) -> dict[str, Any] | None:
+    """Summary of the blind re-labelling of held-out disagreements, if it was done."""
+    base = root / "eval/detectors/adjudication"
+    if not (base / "key.json").is_file():
+        return None
+    key = {k["item"]: k for k in json.loads((base / "key.json").read_text(encoding="utf-8"))}
+    answers = {a["item"]: a for a in yaml.safe_load((base / "answers.yaml").read_text(encoding="utf-8"))}
+    out: dict[str, Any] = {}
+    for kind in ("disputed", "control"):
+        items = [i for i, k in key.items() if k["kind"] == kind]
+        out[kind] = {"pairs": len(items), "upheld": sum(answers[i]["label"] == key[i]["label"] for i in items)}
+    return out
+
+
 def quality_report(root: Path) -> dict[str, Any]:
     tasks = {t.id: t for t in load_suite()}
     authored = evaluate_detectors(root / "eval/detectors/authored.yaml", tasks)
@@ -128,6 +142,7 @@ def quality_report(root: Path) -> dict[str, Any]:
             "heldout": evaluate_claims(root / "eval/claims/heldout.yaml"),
         },
         "excluded_from_index": gates(heldout),
+        "adjudication": adjudication(root),
     }
 
 

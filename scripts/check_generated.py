@@ -186,6 +186,15 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
         f"{ch['accuracy']['point']:.2f} [{ch['accuracy']['lo']:.2f}–{ch['accuracy']['hi']:.2f}] on {ch['messages']} "
         f"held-out messages; disclosure accuracy {ch['disclosure_accuracy']['point']:.2f} on the held-out set."
     )
+    adj = quality.get("adjudication")
+    if adj:
+        lines.append(
+            f"\nEvery held-out disagreement ({adj['disputed']['pairs']} detector/case pairs) was re-labelled blind "
+            f"by a separate reviewer session (a language model given only the written definitions), mixed with "
+            f"{adj['control']['pairs']} agreed controls: it upheld {adj['disputed']['upheld']} of "
+            f"{adj['disputed']['pairs']} original labels and {adj['control']['upheld']} of {adj['control']['pairs']} "
+            "controls, so the held-out numbers above stand ([details](eval/detectors/adjudication/README.md))."
+        )
     if audit:
         lines.append(
             f"\nIndependent re-label agreement on {audit['runs']} randomly sampled real runs: {audit['summary']}"
