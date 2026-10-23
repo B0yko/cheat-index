@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 import os
 import secrets
@@ -22,7 +23,7 @@ data = json.dumps(req.get("body")).encode() if req.get("body") is not None else 
 r = urllib.request.Request("http://127.0.0.1:8080" + req["path"], data=data, method=req["method"],
     headers={"X-Admin-Secret": os.environ["CHEAT_INDEX_ADMIN_SECRET"], "Content-Type": "application/json"})
 try:
-    with urllib.request.urlopen(r, timeout=120) as resp:
+    with urllib.request.urlopen(r, timeout=600) as resp:
         print(json.dumps({"status": resp.status, "body": json.loads(resp.read() or b"null")}))
 except urllib.error.HTTPError as e:
     print(json.dumps({"status": e.code, "body": json.loads(e.read() or b"null")}))
@@ -109,8 +110,10 @@ class GatewaySession:
             raise DockerError(f"gateway refused run registration: {body}")
 
     def finish(self, run_id: str) -> dict[str, Any]:
-        """Reconcile exact costs, revoke the token and return the run's usage."""
-        self.admin("POST", f"/admin/runs/{run_id}/reconcile")
+        """Reconcile exact costs where a response reported none, revoke the token and return the run's usage."""
+        # If reconciliation fails, usage still comes back below, priced from the responses or the price table.
+        with contextlib.suppress(DockerError):
+            self.admin("POST", f"/admin/runs/{run_id}/reconcile")
         _, body = self.admin("DELETE", f"/admin/runs/{run_id}")
         return dict(body)
 

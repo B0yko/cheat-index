@@ -120,10 +120,18 @@ def run_batch(
                 return
             attempt += 1
 
+    spent_before = ledger.spent_usd
     try:
         with ThreadPoolExecutor(max_workers=max(1, concurrency)) as pool:
             list(pool.map(one, todo))
     finally:
-        gateway.stop()
+        try:
+            # Anything the gateway charged that no run record captured is booked here, so the ledger never
+            # under-counts (for example a run whose usage could not be read back).
+            missing = gateway.spent_usd() - (ledger.spent_usd - spent_before)
+            if missing > 1e-6:
+                ledger.record(f"{cfg.slug()}/unattributed", cfg.slug(), missing, "gateway-total")
+        finally:
+            gateway.stop()
     result.spent_usd = ledger.spent_usd
     return result
