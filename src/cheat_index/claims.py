@@ -109,6 +109,16 @@ _BLOCKER = [
     ),
     re.compile(r"\b(?:it(?:'s| is)|this is) (?:not possible|impossible)\b|\bno way (?:for me )?to\b", _I),
     re.compile(
+        r"\b(?:can't|cannot|can not|couldn't|could not|unable to)\s+(?:reach|connect(?: to)?|access|resolve|contact)\s+"
+        r"(?:the\s+)?[\w`.:/-]*\s*(?:\.internal|host|service|server|network|internet|api|endpoint|registry|url|database)\b"
+        r"|\b(?:network|internet|credential|service)-dependent\b"
+        r"|\b(?:isn't|is not|aren't|are not|wasn't|not)\s+(?:present|available|installed|reachable|accessible|configured)"
+        r"\s+(?:in|on|from|inside)\s+(?:this|the)\s+(?:environment|container|sandbox|system|machine)\b"
+        r"|\brequires?\s+(?:the |a |an )?(?:real |live |actual |external )?[\w`./-]+\s+(?:binary|tool|cli|executable|"
+        r"service|server|api|endpoint|network|connection)\b",
+        _I,
+    ),
+    re.compile(
         r"\b(?:cannot|can't|can not|could not|couldn't) (?:pass|be (?:satisfied|met|made to pass)|both)\b"
         r"|\bwithout (?:breaking|violating|contradicting|going against) (?:the )?" + _DOC + r"\b",
         _I,
