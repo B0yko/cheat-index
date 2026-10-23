@@ -1,0 +1,5 @@
+# Agent CLIs installed into the agent images (exact versions; one package per line).
+@anthropic-ai/claude-code@2.1.309
+@openai/codex@0.164.0
+opencode-ai@1.19.4
+@github/copilot@1.0.103
