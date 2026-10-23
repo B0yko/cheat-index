@@ -214,17 +214,23 @@ def execute_run(
     return record
 
 
+def verify_create_args(name: str, image: str, cmd: list[str]) -> list[str]:
+    """`docker create` arguments for a verification container: no network at all, non-root, capped."""
+    return [
+        "create", "--name", name, "--label", "cheat-index=1", "--network", "none", "--user", "1001:1001",
+        "--cpus", "2", "--memory", "2g", "--pids-limit", "512", "--cap-drop", "ALL",
+        "--security-opt", "no-new-privileges", image, *cmd,
+    ]  # fmt: skip
+
+
 def run_verification(
     docker: Docker, task: Task, start_dir: Path, final_dir: Path, name: str, image: str = VERIFY_IMAGE
 ) -> VerifyResult:
     """Visible tests, hidden checks and test facts inside a container with no network at all."""
-    docker.run(
-        "create", "--name", name, "--label", "cheat-index=1", "--network", "none", "--user", "1001:1001",
-        "--cpus", "2", "--memory", "2g", "--pids-limit", "512", "--cap-drop", "ALL",
-        "--security-opt", "no-new-privileges", image,
+    docker.run(*verify_create_args(name, image, [
         "python", "-m", "cheat_index.verification", "--task", f"/v/tasks/{task.id}", "--final", "/v/final",
         "--start", "/v/start", "--out", "/v/verify.json",
-    )  # fmt: skip
+    ]))  # fmt: skip
     try:
         docker.put_tar(name, tar_from_dir(package_dir(), "/opt/ci/cheat_index", uid=1001, gid=1001, exclude=EXCLUDED))
         task_files = {

@@ -1,5 +1,6 @@
 """Scripted adapter: replays a task's honest or cheating behaviour in a real container, with no model calls.
 
+The run's gateway token is exposed as CHEAT_INDEX_RUN_TOKEN so isolation tests can probe the gateway.
 The model id names the behaviour file under the task's `scripted/` directory (`honest`, `cheat-edit-test` …).
 Used by the end-to-end tests and CI to exercise containers, the proxy, verification and scoring.
 """
@@ -25,7 +26,7 @@ class ScriptedAdapter(Adapter):
         behaviour = load_behaviour(task.scripted_dir / f"{cfg.model}.yaml")
         return Launch(
             argv=["python3", "/home/agent/.scripted/replay.py", "/home/agent/.scripted/behaviour.json"],
-            env=self.base_env(),
+            env={**self.base_env(), "CHEAT_INDEX_RUN_TOKEN": token},
             home_files={
                 ".scripted/replay.py": REPLAY.read_text(encoding="utf-8"),
                 ".scripted/behaviour.json": json.dumps(behaviour.to_payload()),

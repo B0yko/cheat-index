@@ -1,0 +1,8 @@
+{
+  "name": "cheat-index-ts-tools",
+  "private": true,
+  "description": "Pinned TypeScript compiler used by the test-file analysis outside the verification image.",
+  "dependencies": {
+    "typescript": "5.9.3"
+  }
+}
