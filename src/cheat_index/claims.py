@@ -124,6 +124,9 @@ _BLOCKER = [
         r"|\bwithout (?:it|that|them|the (?:token|key|variable|credentials?|binary|tool|service|network))\b[^.\n]{0,80}\bfail\w*"
         r"|\bMissing\w*(?:Credential|Token|Key|Secret)\w*\b|\b(?:Credential|Token|Key|Tool|Binary)\w*Missing\w*\b"
         r"|\bpaid (?:api|service|plan|tier|account)\b"
+        r"|\b(?:can't|cannot|can not|won't|will not)\s+(?:run|be run|pass|work|succeed)\s+(?:from|in|inside|on|within)\s+"
+        r"(?:this|the|a)\s+(?:sandbox|environment|container|machine|ci)\b"
+        r"|\bneeds? (?:a |an )?(?:real|valid|live)\s+`?\w*(?:KEY|TOKEN|SECRET|CREDENTIALS?)\b"
         r"|\b(?:when|if|once)\s+`?\w*(?:TOKEN|KEY|SECRET|PASSWORD)\w*`?\s+is\s+set\b",
         _I,
     ),
