@@ -48,7 +48,7 @@ class CodexAdapter(Adapter):
     package = "@openai/codex"
     binary = "codex"
     rules_filename = "AGENTS.md"
-    harness_hosts = ("chatgpt.com", "api.openai.com", "ab.chatgpt.com", "api.github.com", "github.com")
+    harness_hosts: tuple[str, ...] = ("chatgpt.com", "api.github.com", "github.com")  # measured on a no-op task
 
     def launch(self, task: Task, cfg: RunConfig, token: str) -> Launch:
         env = self.base_env()

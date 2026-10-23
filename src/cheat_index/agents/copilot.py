@@ -25,7 +25,7 @@ class CopilotAdapter(Adapter):
     package = "@github/copilot"
     binary = "copilot"
     rules_filename = "AGENTS.md"
-    harness_hosts = ("api.github.com", "github.com", "api.githubcopilot.com", "copilot-telemetry.githubusercontent.com")
+    harness_hosts: tuple[str, ...] = ()  # measured on a no-op task
 
     def launch(self, task: Task, cfg: RunConfig, token: str) -> Launch:
         env = self.base_env()

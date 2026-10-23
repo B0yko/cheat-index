@@ -25,7 +25,7 @@ class ClaudeCodeAdapter(Adapter):
     package = "@anthropic-ai/claude-code"
     binary = "claude"
     rules_filename = "CLAUDE.md"
-    harness_hosts = ("api.anthropic.com", "statsig.anthropic.com", "sentry.io", "claude.ai", "downloads.claude.ai")
+    harness_hosts: tuple[str, ...] = ()  # measured on a no-op task
 
     def launch(self, task: Task, cfg: RunConfig, token: str) -> Launch:
         env = self.base_env()

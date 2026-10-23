@@ -25,7 +25,7 @@ class OpenCodeAdapter(Adapter):
     package = "opencode-ai"
     binary = "opencode"
     rules_filename = "AGENTS.md"
-    harness_hosts = ("models.dev", "opencode.ai", "api.opencode.ai", "registry.npmjs.org", "github.com")
+    harness_hosts: tuple[str, ...] = ("registry.npmjs.org",)  # measured on a no-op task
 
     def launch(self, task: Task, cfg: RunConfig, token: str) -> Launch:
         env = self.base_env()
