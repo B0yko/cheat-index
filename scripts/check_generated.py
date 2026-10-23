@@ -202,8 +202,22 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def expected_blocks(board: dict[str, Any], quality: dict[str, Any], audit: dict[str, Any]) -> dict[str, str]:
+def block_quickstart(version: str) -> str:
+    path = ROOT / "results" / version / "quickstart.json"
+    if not path.is_file():
+        return "The quickstart command above has not been measured yet.\n"
+    q = json.loads(path.read_text(encoding="utf-8"))
+    return (
+        f"Measured once on {q['date']} ({q['hardware']}): `{q['command']}` ran {q['runs']} runs in "
+        f"{q['wall_min']:.0f} minutes and cost ${q['cost_usd']:.2f} through OpenRouter.\n"
+    )
+
+
+def expected_blocks(
+    board: dict[str, Any], quality: dict[str, Any], audit: dict[str, Any], version: str = "0.1.0"
+) -> dict[str, str]:
     return {
+        "quickstart-cost": block_quickstart(version),
         "headline": block_headline(board),
         "leaderboard": block_leaderboard(board),
         "harness": block_harness(board),
@@ -232,7 +246,7 @@ def main() -> int:
     board_text = json.dumps(board, indent=1, ensure_ascii=False) + "\n"
     readme_path = ROOT / "README.md"
     readme = readme_path.read_text(encoding="utf-8")
-    blocks = expected_blocks(board, quality, audit)
+    blocks = expected_blocks(board, quality, audit, args.version)
     found = {m.group("name") for m in BLOCK.finditer(readme)}
     new_readme = BLOCK.sub(lambda m: m.group(1) + blocks.get(m.group("name"), m.group("body")) + m.group(4), readme)
     data_path = ROOT / "docs" / "img" / "leaderboard-data.json"

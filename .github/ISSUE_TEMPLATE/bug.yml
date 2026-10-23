@@ -1,0 +1,19 @@
+name: Bug report
+description: Something in the harness, scoring or site does not work
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Command and output
+      render: shell
+  - type: input
+    id: env
+    attributes:
+      label: cheat-index version, OS, container runtime
