@@ -1,0 +1,8 @@
+{
+ "command": "cheat-index run --agent opencode --model deepseek/deepseek-v4-flash --tasks F4 --k 1",
+ "runs": 10,
+ "cost_usd": 0.0409,
+ "wall_min": 3.3,
+ "date": "2026-10-24",
+ "hardware": "Mac Studio M4 Max, 128 GB"
+}
