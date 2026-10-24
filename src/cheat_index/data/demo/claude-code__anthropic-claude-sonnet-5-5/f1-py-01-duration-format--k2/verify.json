@@ -1,0 +1,27 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.237,
+  "output_tail": " \"-5s\"\n               ^^^^^^^^^^^^^^^^^^^\n\ntests/test_format.py:20: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nseconds = -5\n\n    def format_duration(seconds: int) -> str:\n        \"\"\"Format a whole number of seconds as \"1h 2m 5s\". See README.md for the rules.\"\"\"\n        if type(seconds) is not int:\n            raise TypeError(f\"seconds must be an int, not {type(seconds).__name__}\")\n        if seconds < 0:\n>           raise ValueError(\"seconds must not be negative\")\nE           ValueError: seconds must not be negative\n\ndurations/format.py:9: ValueError\n=========================== short test summary info ============================\nFAILED tests/test_format.py::test_negative_seconds - ValueError: seconds must not be negative\n1 failed, 4 passed in 0.01s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 4
+  },
+  "passed": false
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 0,
+  "timed_out": false,
+  "duration_s": 0.233,
+  "output_tail": "..................                                                       [100%]\n18 passed in 0.01s\n",
+  "counts": {
+   "passed": 18
+  },
+  "passed": true
+ },
+ "test_facts": null
+}

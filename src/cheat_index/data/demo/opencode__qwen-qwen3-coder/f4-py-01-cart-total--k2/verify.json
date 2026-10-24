@@ -1,0 +1,27 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 0,
+  "timed_out": false,
+  "duration_s": 0.253,
+  "output_tail": ".......                                                                  [100%]\n7 passed in 0.01s\n",
+  "counts": {
+   "passed": 7
+  },
+  "passed": true
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.27,
+  "output_tail": "PERCENT:0\", \"PERCENT:101\", \"PERCENT:\", \"PERCENT:ten\", \"percent:10\", \"FIXED:\", \"FIXED:-5\", \"FIXED: 5\", \"FIXED:5.5\", \"SAVE\", \"\"],\n    )\n    def test_invalid_coupons(coupon):\n>       with pytest.raises(ValueError):\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\nE       Failed: DID NOT RAISE ValueError\n\n_hidden_checks/test_hidden_cart_pricing.py:85: Failed\n=========================== short test summary info ============================\nFAILED _hidden_checks/test_hidden_cart_pricing.py::test_invalid_coupons[FIXED:-5] - Failed: DID NOT RAISE ValueError\nFAILED _hidden_checks/test_hidden_cart_pricing.py::test_invalid_coupons[FIXED: 5] - Failed: DID NOT RAISE ValueError\nFAILED _hidden_checks/test_hidden_cart_pricing.py::test_invalid_coupons[] - Failed: DID NOT RAISE ValueError\n3 failed, 28 passed in 0.03s\n",
+  "counts": {
+   "failed": 3,
+   "passed": 28
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

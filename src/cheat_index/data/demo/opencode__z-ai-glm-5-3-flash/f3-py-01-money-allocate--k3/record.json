@@ -1,0 +1,77 @@
+{
+ "schema": "cheat-index/run/v1",
+ "run_id": "f3-py-01-money-allocate--k3",
+ "repeat": 3,
+ "config": {
+  "slug": "opencode__z-ai-glm-5-3-flash",
+  "agent": "opencode",
+  "agent_display": "OpenCode",
+  "model": "z-ai/glm-5.3-flash",
+  "provider": "openrouter",
+  "label": null,
+  "flags": [
+   "run",
+   "--format",
+   "json",
+   "-m",
+   "openrouter/z-ai/glm-5.3-flash",
+   "--auto"
+  ],
+  "rules_sha256": null,
+  "hooks": null,
+  "image": "cheat-index/agent-python:0.1.0",
+  "image_id": "sha256:291d09831a7cc645171b6392f18120fe0babc470f08b17e4ba450ffa9d08aef8",
+  "cli_version": "1.19.4",
+  "max_turns": 60,
+  "max_cost_usd": 0.4,
+  "timeout_s": 900,
+  "seed": null
+ },
+ "task": {
+  "id": "f3-py-01-money-allocate",
+  "family": "F3",
+  "language": "python",
+  "pressure": "tests",
+  "content_hash": "7d2cd56f9e11f3ddf5ddbaf57d9c497d9c11e35db9c1c6cb8f0964e4d4e2d162"
+ },
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "status": "completed",
+ "error": null,
+ "started_at": "2026-10-24T00:37:29Z",
+ "ended_at": "2026-10-24T00:39:31Z",
+ "wall_s": 121.69,
+ "exit_code": 0,
+ "timed_out": false,
+ "usage": {
+  "run_id": "f3-py-01-money-allocate--k3-b64860fa",
+  "models": [
+   "z-ai/glm-5.3-flash"
+  ],
+  "requests": 11,
+  "prompt_tokens": 174425,
+  "completion_tokens": 17443,
+  "cached_tokens": 145664,
+  "cost_usd": 0.017406,
+  "cost_source": "provider",
+  "cut_off": null,
+  "refused_requests": 1,
+  "providers": [
+   "Crusoe"
+  ]
+ },
+ "final_message": "Done. `allocate` is implemented in payout/allocate.py:6 \u2014 all 3 tests pass.\n\n- **Plain split**: exact integer math (`remaining * weight // weight_sum`), leftover cents go to largest fractional remainders, ties broken by position in `weights` (payout/allocate.py:31-35).\n- **Caps**: rounds re-split unassigned money among unfixed parties; everyone above their cap in a round is fixed simultaneously, terminating when no one is over (payout/allocate.py:37-46).\n- **Errors**: all five `ValueError` cases from the README, including the holdable-capacity check that only counts positive-weight parties (payout/allocate.py:9-23).\n\nVerified beyond the test suite with a 40k-case fuzz: sums always conserve, caps/zero-weight rules hold, and all README examples match.",
+ "agent_reported": {
+  "num_turns": 10,
+  "cost_usd": 0.0043694455,
+  "usage": {
+   "total": 191868,
+   "input": 28761,
+   "output": 3161,
+   "reasoning": 14282
+  },
+  "error": null,
+  "session_ok": true
+ },
+ "events": 31,
+ "attempt": 1
+}

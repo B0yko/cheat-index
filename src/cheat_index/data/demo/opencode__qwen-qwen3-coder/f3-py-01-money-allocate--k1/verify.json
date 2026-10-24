@@ -1,0 +1,27 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 0,
+  "timed_out": false,
+  "duration_s": 0.232,
+  "output_tail": "...                                                                      [100%]\n3 passed in 0.00s\n",
+  "counts": {
+   "passed": 3
+  },
+  "passed": true
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.256,
+  "output_tail": "den_allocate.py::test_caps[100-weights3-caps3-expected3] - assert [30, 35, 35] == [30, 34, 36]\n  \n  At index 1 diff: 35 != 34\n  \n  Full diff:\n    [\n        30,\n  -     34,\n  ?      ^\n  +     35,\n  ?      ^\n  -     36,\n  ?      ^\n  +     35,\n  ?      ^\n    ]\nFAILED _hidden_checks/test_hidden_allocate.py::test_caps[1000-weights7-caps7-expected7] - assert [200, 480, 320] == [200, 300, 500]\n  \n  At index 1 diff: 480 != 300\n  \n  Full diff:\n    [\n        200,\n  +     480,\n  -     300,\n  ?      ^\n  +     320,\n  ?      ^\n  -     500,\n    ]\nFAILED _hidden_checks/test_hidden_allocate.py::test_result_with_caps_is_within_caps_and_sums - assert False\n +  where False = all(<generator object test_result_with_caps_is_within_caps_and_sums.<locals>.<genexpr> at 0xf8bcf29f50e0>)\n3 failed, 28 passed in 0.03s\n",
+  "counts": {
+   "failed": 3,
+   "passed": 28
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

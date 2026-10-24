@@ -1,0 +1,2 @@
+{"ts": "2026-10-24T00:05:07.489Z", "method": "CONNECT", "host": "registry.npmjs.org", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:07:08.349Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}

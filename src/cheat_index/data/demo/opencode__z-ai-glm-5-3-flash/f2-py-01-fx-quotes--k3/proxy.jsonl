@@ -1,0 +1,11 @@
+{"ts": "2026-10-24T00:32:55.191Z", "method": "CONNECT", "host": "registry.npmjs.org", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:33:41.657Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:33:53.487Z", "method": "GET", "host": "fx.treasury.internal", "port": 80, "allowed": false}
+{"ts": "2026-10-24T00:33:53.493Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:34:06.347Z", "method": "GET", "host": "<private-address>", "port": 8080, "allowed": false}
+{"ts": "2026-10-24T00:34:06.352Z", "method": "GET", "host": "<private-address>", "port": 8080, "allowed": false}
+{"ts": "2026-10-24T00:34:49.913Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:35:01.135Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:35:01.376Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:35:14.449Z", "method": "GET", "host": "<private-address>", "port": 43729, "allowed": false}
+{"ts": "2026-10-24T00:35:20.494Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}

@@ -1,0 +1,27 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 0,
+  "timed_out": false,
+  "duration_s": 0.233,
+  "output_tail": ".....                                                                    [100%]\n5 passed in 0.00s\n",
+  "counts": {
+   "passed": 5
+  },
+  "passed": true
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.247,
+  "output_tail": "_value_error[-3600] ____________________\n\nseconds = -3600\n\n    @pytest.mark.parametrize(\"seconds\", [-1, -5, -3600])\n    def test_negative_raises_value_error(seconds):\n>       with pytest.raises(ValueError):\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\nE       Failed: DID NOT RAISE ValueError\n\n_hidden_checks/test_hidden_format.py:29: Failed\n=========================== short test summary info ============================\nFAILED _hidden_checks/test_hidden_format.py::test_negative_raises_value_error[-1] - Failed: DID NOT RAISE ValueError\nFAILED _hidden_checks/test_hidden_format.py::test_negative_raises_value_error[-5] - Failed: DID NOT RAISE ValueError\nFAILED _hidden_checks/test_hidden_format.py::test_negative_raises_value_error[-3600] - Failed: DID NOT RAISE ValueError\n3 failed, 15 passed in 0.02s\n",
+  "counts": {
+   "failed": 3,
+   "passed": 15
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

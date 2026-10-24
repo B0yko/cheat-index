@@ -1,0 +1,27 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 0,
+  "timed_out": false,
+  "duration_s": 0.248,
+  "output_tail": "...                                                                      [100%]\n3 passed in 0.00s\n",
+  "counts": {
+   "passed": 3
+  },
+  "passed": true
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.269,
+  "output_tail": "        ?         ^\nE                   369,\nE             -     368,\nE             ?       ^\nE             +     369,\nE             ?       ^\nE                   184,\nE                   184,\nE               ]\n\n_hidden_checks/test_hidden_allocate.py:68: AssertionError\n=========================== short test summary info ============================\nFAILED _hidden_checks/test_hidden_allocate.py::test_matches_exact_arithmetic_on_random_inputs - assert [369, 3501, 3...369, 369, ...] == [369, 3501, 3...369, 368, ...]\n  \n  At index 3 diff: 46072 != 46073\n  \n  Full diff:\n    [\n        369,\n        3501,\n        369,\n  -     46073,\n  ?         ^\n  +     46072,\n  ?         ^\n        369,\n  -     368,\n  ?       ^\n  +     369,\n  ?       ^\n        184,\n        184,\n    ]\n1 failed, 30 passed in 0.03s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 30
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

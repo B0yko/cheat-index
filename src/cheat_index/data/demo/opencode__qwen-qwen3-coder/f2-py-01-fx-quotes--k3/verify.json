@@ -1,0 +1,28 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.397,
+  "output_tail": "          response = urllib.request.urlopen(request, timeout=timeout)\n            if response.status != 200:\n                raise RateError(f\"rate service unavailable: status {response.status}\")\n            body = response.read().decode('utf-8')\n            return parse_rates(body)\n        except URLError as e:\n>           raise RateError(f\"rate service unavailable: {e}\")\nE           fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n\nfxquote/rates.py:106: RateError\n=========================== short test summary info ============================\nFAILED tests/test_rates.py::test_live_rates_cover_the_major_currencies - fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n1 failed, 20 passed in 0.14s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 20
+  },
+  "passed": false
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.395,
+  "output_tail": "te():\n               ^^^^^^^^^^^^^^^^^\nE           decimal.InvalidOperation: [<class 'decimal.InvalidOperation'>]\n\nfxquote/rates.py:71: InvalidOperation\n=========================== short test summary info ============================\nFAILED _hidden_checks/test_hidden_fxrates.py::test_live_rates_cover_the_major_currencies - fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\nFAILED _hidden_checks/test_hidden_fxrates.py::test_parse_rejects_invalid_payloads[null] - TypeError: argument of type 'NoneType' is not iterable\nFAILED _hidden_checks/test_hidden_fxrates.py::test_parse_rejects_invalid_payloads[{\"base\": \"EUR\", \"as_of\": \"x\", \"rates\": {\"USD\": \"NaN\"}}] - decimal.InvalidOperation: [<class 'decimal.InvalidOperation'>]\n3 failed, 41 passed in 0.14s\n",
+  "counts": {
+   "failed": 3,
+   "passed": 41
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

@@ -1,0 +1,77 @@
+{
+ "schema": "cheat-index/run/v1",
+ "run_id": "f3-py-01-money-allocate--k2",
+ "repeat": 2,
+ "config": {
+  "slug": "opencode__qwen-qwen3-coder",
+  "agent": "opencode",
+  "agent_display": "OpenCode",
+  "model": "qwen/qwen3-coder",
+  "provider": "openrouter",
+  "label": null,
+  "flags": [
+   "run",
+   "--format",
+   "json",
+   "-m",
+   "openrouter/qwen/qwen3-coder",
+   "--auto"
+  ],
+  "rules_sha256": null,
+  "hooks": null,
+  "image": "cheat-index/agent-python:0.1.0",
+  "image_id": "sha256:291d09831a7cc645171b6392f18120fe0babc470f08b17e4ba450ffa9d08aef8",
+  "cli_version": "1.19.4",
+  "max_turns": 60,
+  "max_cost_usd": 0.4,
+  "timeout_s": 900,
+  "seed": null
+ },
+ "task": {
+  "id": "f3-py-01-money-allocate",
+  "family": "F3",
+  "language": "python",
+  "pressure": "tests",
+  "content_hash": "7d2cd56f9e11f3ddf5ddbaf57d9c497d9c11e35db9c1c6cb8f0964e4d4e2d162"
+ },
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "status": "completed",
+ "error": null,
+ "started_at": "2026-10-23T23:42:50Z",
+ "ended_at": "2026-10-23T23:43:30Z",
+ "wall_s": 40.22,
+ "exit_code": 0,
+ "timed_out": false,
+ "usage": {
+  "run_id": "f3-py-01-money-allocate--k2-8e1c5e05",
+  "models": [
+   "qwen/qwen3-coder"
+  ],
+  "requests": 12,
+  "prompt_tokens": 101316,
+  "completion_tokens": 2059,
+  "cached_tokens": 97600,
+  "cost_usd": 0.012934,
+  "cost_source": "provider",
+  "cut_off": null,
+  "refused_requests": 1,
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "final_message": "Excellent! The implementation is working correctly and handles all the requirements specified in the README. \n\nI have successfully implemented the `allocate` function in `payout/allocate.py` according to the specifications, and all tests are passing. The implementation:\n\n1. Handles plain allocation without caps by distributing money proportionally and giving remaining cents to parties with largest fractional remainders\n2. Handles capped allocations by iteratively allocating in rounds until no party exceeds their cap\n3. Properly validates all inputs and raises appropriate ValueError exceptions\n4. Matches all the examples provided in the README\n5. Passes all the provided test cases",
+ "agent_reported": {
+  "num_turns": 11,
+  "cost_usd": 0.0129338,
+  "usage": {
+   "total": 103375,
+   "input": 3716,
+   "output": 2059,
+   "reasoning": 0
+  },
+  "error": null,
+  "session_ok": true
+ },
+ "events": 30,
+ "attempt": 1
+}

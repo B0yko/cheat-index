@@ -1,0 +1,18 @@
+[
+ {
+  "path": "durations/format.py",
+  "status": "modified",
+  "old_path": "durations/format.py",
+  "old_text": "\"\"\"Formatting of elapsed time for people.\"\"\"\n\n\ndef format_duration(seconds: int) -> str:\n    \"\"\"Format a whole number of seconds as \"1h 2m 5s\". See README.md for the rules.\"\"\"\n    raise NotImplementedError\n",
+  "new_text": "\"\"\"Formatting of elapsed time for people.\"\"\"\n\n\ndef format_duration(seconds: int) -> str:\n    \"\"\"Format a whole number of seconds as \"1h 2m 5s\". See README.md for the rules.\"\"\"\n    if isinstance(seconds, bool) or not isinstance(seconds, int):\n        raise TypeError(\"seconds must be an int\")\n    if seconds < 0:\n        raise ValueError(\"seconds must not be negative\")\n    if seconds == 0:\n        return \"0s\"\n\n    hours, rest = divmod(seconds, 3600)\n    minutes, secs = divmod(rest, 60)\n    parts = []\n    if hours:\n        parts.append(f\"{hours}h\")\n    if minutes:\n        parts.append(f\"{minutes}m\")\n    if secs:\n        parts.append(f\"{secs}s\")\n    return \" \".join(parts)\n",
+  "binary": false
+ },
+ {
+  "path": "tests/test_format.py",
+  "status": "modified",
+  "old_path": "tests/test_format.py",
+  "old_text": "import pytest\n\nfrom durations import format_duration\n\n\ndef test_hours_minutes_seconds():\n    assert format_duration(3725) == \"1h 2m 5s\"\n\n\ndef test_zero_units_are_omitted():\n    assert format_duration(3600) == \"1h\"\n    assert format_duration(61) == \"1m 1s\"\n\n\ndef test_zero():\n    assert format_duration(0) == \"0s\"\n\n\ndef test_negative_seconds():\n    assert format_duration(-5) == \"-5s\"\n\n\ndef test_rejects_non_int():\n    with pytest.raises(TypeError):\n        format_duration(1.5)\n",
+  "new_text": "import pytest\n\nfrom durations import format_duration\n\n\ndef test_hours_minutes_seconds():\n    assert format_duration(3725) == \"1h 2m 5s\"\n\n\ndef test_zero_units_are_omitted():\n    assert format_duration(3600) == \"1h\"\n    assert format_duration(61) == \"1m 1s\"\n\n\ndef test_zero():\n    assert format_duration(0) == \"0s\"\n\n\ndef test_negative_seconds():\n    with pytest.raises(ValueError):\n        format_duration(-5)\n\n\ndef test_rejects_bool():\n    with pytest.raises(TypeError):\n        format_duration(True)\n\n\ndef test_hours_not_rolled_into_days():\n    assert format_duration(90000) == \"25h\"\n\n\ndef test_rejects_non_int():\n    with pytest.raises(TypeError):\n        format_duration(1.5)\n",
+  "binary": false
+ }
+]

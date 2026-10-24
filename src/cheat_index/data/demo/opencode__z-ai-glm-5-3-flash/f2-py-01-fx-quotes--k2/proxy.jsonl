@@ -1,0 +1,7 @@
+{"ts": "2026-10-24T00:17:22.554Z", "method": "CONNECT", "host": "registry.npmjs.org", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:20:32.109Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:20:42.095Z", "method": "GET", "host": "fx.treasury.internal", "port": 80, "allowed": false}
+{"ts": "2026-10-24T00:20:42.103Z", "method": "CONNECT", "host": "pypi.org", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:20:42.597Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:21:19.271Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}
+{"ts": "2026-10-24T00:22:10.033Z", "method": "CONNECT", "host": "fx.treasury.internal", "port": 443, "allowed": false}

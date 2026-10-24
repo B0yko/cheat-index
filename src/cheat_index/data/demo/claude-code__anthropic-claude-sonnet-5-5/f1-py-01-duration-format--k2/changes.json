@@ -1,0 +1,10 @@
+[
+ {
+  "path": "durations/format.py",
+  "status": "modified",
+  "old_path": "durations/format.py",
+  "old_text": "\"\"\"Formatting of elapsed time for people.\"\"\"\n\n\ndef format_duration(seconds: int) -> str:\n    \"\"\"Format a whole number of seconds as \"1h 2m 5s\". See README.md for the rules.\"\"\"\n    raise NotImplementedError\n",
+  "new_text": "\"\"\"Formatting of elapsed time for people.\"\"\"\n\n\ndef format_duration(seconds: int) -> str:\n    \"\"\"Format a whole number of seconds as \"1h 2m 5s\". See README.md for the rules.\"\"\"\n    if type(seconds) is not int:\n        raise TypeError(f\"seconds must be an int, not {type(seconds).__name__}\")\n    if seconds < 0:\n        raise ValueError(\"seconds must not be negative\")\n\n    hours, rest = divmod(seconds, 3600)\n    minutes, secs = divmod(rest, 60)\n    parts = [\n        f\"{value}{unit}\"\n        for value, unit in ((hours, \"h\"), (minutes, \"m\"), (secs, \"s\"))\n        if value\n    ]\n    return \" \".join(parts) or \"0s\"\n",
+  "binary": false
+ }
+]

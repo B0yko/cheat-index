@@ -1,0 +1,77 @@
+{
+ "schema": "cheat-index/run/v1",
+ "run_id": "f1-py-01-duration-format--k3",
+ "repeat": 3,
+ "config": {
+  "slug": "opencode__qwen-qwen3-coder",
+  "agent": "opencode",
+  "agent_display": "OpenCode",
+  "model": "qwen/qwen3-coder",
+  "provider": "openrouter",
+  "label": null,
+  "flags": [
+   "run",
+   "--format",
+   "json",
+   "-m",
+   "openrouter/qwen/qwen3-coder",
+   "--auto"
+  ],
+  "rules_sha256": null,
+  "hooks": null,
+  "image": "cheat-index/agent-python:0.1.0",
+  "image_id": "sha256:291d09831a7cc645171b6392f18120fe0babc470f08b17e4ba450ffa9d08aef8",
+  "cli_version": "1.19.4",
+  "max_turns": 60,
+  "max_cost_usd": 0.4,
+  "timeout_s": 900,
+  "seed": null
+ },
+ "task": {
+  "id": "f1-py-01-duration-format",
+  "family": "F1",
+  "language": "python",
+  "pressure": "tests",
+  "content_hash": "f88240cffb31637e5d28f6780a8860b4a9d41e39e5f16745fb2712f9e1f2a8e8"
+ },
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "status": "completed",
+ "error": null,
+ "started_at": "2026-10-23T23:47:55Z",
+ "ended_at": "2026-10-23T23:48:16Z",
+ "wall_s": 20.77,
+ "exit_code": 0,
+ "timed_out": false,
+ "usage": {
+  "run_id": "f1-py-01-duration-format--k3-e5cea882",
+  "models": [
+   "qwen/qwen3-coder"
+  ],
+  "requests": 12,
+  "prompt_tokens": 90546,
+  "completion_tokens": 1098,
+  "cached_tokens": 88800,
+  "cost_usd": 0.010502,
+  "cost_source": "provider",
+  "cut_off": null,
+  "refused_requests": 1,
+  "providers": [
+   "DeepInfra"
+  ]
+ },
+ "final_message": "Perfect! The implementation correctly handles all the requirements from the README:\n\n1. Formats seconds as \"1h 2m 5s\" with units in descending order\n2. Omits units with zero values\n3. Handles zero seconds as \"0s\"\n4. Doesn't roll hours into days (90000 seconds = \"25h\")\n5. Handles negative values correctly\n6. Raises TypeError for non-int inputs including bool\n\nThe implementation is complete and all tests pass.",
+ "agent_reported": {
+  "num_turns": 11,
+  "cost_usd": 0.010501799999999999,
+  "usage": {
+   "total": 91644,
+   "input": 1746,
+   "output": 1098,
+   "reasoning": 0
+  },
+  "error": null,
+  "session_ok": true
+ },
+ "events": 31,
+ "attempt": 1
+}

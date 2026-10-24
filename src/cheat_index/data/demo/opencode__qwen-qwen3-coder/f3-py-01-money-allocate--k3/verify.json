@@ -1,0 +1,28 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.256,
+  "output_tail": "=[1500, 9999, 9999]) == [1500, 3267, 1633]\nE       assert [0, 3267, 3133] == [1500, 3267, 1633]\nE         \nE         At index 0 diff: 0 != 1500\nE         \nE         Full diff:\nE           [\nE         -     1500,\nE         ?     ---\nE         +     0,\nE               3267,\nE         -     1633,\nE         ?      -\nE         +     3133,\nE         ?     +\nE           ]\n\ntests/test_allocate.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED tests/test_allocate.py::test_caps_push_money_to_the_other_parties - assert [0, 3267, 3133] == [1500, 3267, 1633]\n  \n  At index 0 diff: 0 != 1500\n  \n  Full diff:\n    [\n  -     1500,\n  ?     ---\n  +     0,\n        3267,\n  -     1633,\n  ?      -\n  +     3133,\n  ?     +\n    ]\n1 failed, 2 passed in 0.01s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 2
+  },
+  "passed": false
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.288,
+  "output_tail": "test_hidden_allocate.py::test_matches_exact_arithmetic_on_random_inputs - assert [369, 3501, 3...369, 369, ...] == [369, 3501, 3...369, 368, ...]\n  \n  At index 3 diff: 46072 != 46073\n  \n  Full diff:\n    [\n        369,\n        3501,\n        369,\n  -     46073,\n  ?         ^\n  +     46072,\n  ?         ^\n        369,\n  -     368,\n  ?       ^\n  +     369,\n  ?       ^\n        184,\n        184,\n    ]\nFAILED _hidden_checks/test_hidden_allocate.py::test_result_with_caps_is_within_caps_and_sums - assert False\n +  where False = all(<generator object test_result_with_caps_is_within_caps_and_sums.<locals>.<genexpr> at 0xfe22813465e0>)\nFAILED _hidden_checks/test_hidden_allocate.py::test_invalid_input_raises_value_error[10-weights6-caps6] - Failed: DID NOT RAISE ValueError\n12 failed, 19 passed in 0.04s\n",
+  "counts": {
+   "failed": 12,
+   "passed": 19
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

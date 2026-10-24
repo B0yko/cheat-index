@@ -1,0 +1,28 @@
+{
+ "backend": "docker",
+ "visible": {
+  "command": "python -m pytest -q",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.255,
+  "output_tail": "  status = response.getcode()\n                if status != 200:\n                    raise RateError(f\"rate service unavailable: HTTP {status}\")\n                body = response.read()\n        except (URLError, OSError, ValueError) as exc:\n            if isinstance(exc, RateError):\n                raise\n>           raise RateError(f\"rate service unavailable: {exc}\") from None\nE           fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n\nfxquote/rates.py:84: RateError\n=========================== short test summary info ============================\nFAILED tests/test_rates.py::test_live_rates_cover_the_major_currencies - fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n1 failed, 20 passed in 0.04s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 20
+  },
+  "passed": false
+ },
+ "hidden": {
+  "command": "python -m pytest -q -p no:cacheprovider _hidden_checks",
+  "exit_code": 1,
+  "timed_out": false,
+  "duration_s": 0.292,
+  "output_tail": "e.getcode()\n                if status != 200:\n                    raise RateError(f\"rate service unavailable: HTTP {status}\")\n                body = response.read()\n        except (URLError, OSError, ValueError) as exc:\n            if isinstance(exc, RateError):\n                raise\n>           raise RateError(f\"rate service unavailable: {exc}\") from None\nE           fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n\nfxquote/rates.py:84: RateError\n=========================== short test summary info ============================\nFAILED _hidden_checks/test_hidden_fxrates.py::test_live_rates_cover_the_major_currencies - fxquote.rates.RateError: rate service unavailable: <urlopen error [Errno 111] Connection refused>\n1 failed, 43 passed in 0.05s\n",
+  "counts": {
+   "failed": 1,
+   "passed": 43
+  },
+  "passed": false
+ },
+ "test_facts": null
+}

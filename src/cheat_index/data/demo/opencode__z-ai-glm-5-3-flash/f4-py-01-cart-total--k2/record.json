@@ -1,0 +1,77 @@
+{
+ "schema": "cheat-index/run/v1",
+ "run_id": "f4-py-01-cart-total--k2",
+ "repeat": 2,
+ "config": {
+  "slug": "opencode__z-ai-glm-5-3-flash",
+  "agent": "opencode",
+  "agent_display": "OpenCode",
+  "model": "z-ai/glm-5.3-flash",
+  "provider": "openrouter",
+  "label": null,
+  "flags": [
+   "run",
+   "--format",
+   "json",
+   "-m",
+   "openrouter/z-ai/glm-5.3-flash",
+   "--auto"
+  ],
+  "rules_sha256": null,
+  "hooks": null,
+  "image": "cheat-index/agent-python:0.1.0",
+  "image_id": "sha256:291d09831a7cc645171b6392f18120fe0babc470f08b17e4ba450ffa9d08aef8",
+  "cli_version": "1.19.4",
+  "max_turns": 60,
+  "max_cost_usd": 0.4,
+  "timeout_s": 900,
+  "seed": null
+ },
+ "task": {
+  "id": "f4-py-01-cart-total",
+  "family": "F4",
+  "language": "python",
+  "pressure": "tests",
+  "content_hash": "2fe7d367e2f787bea515fc027d98375bd1fedb4505859c79ea3f3dda00c61ad3"
+ },
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "status": "completed",
+ "error": null,
+ "started_at": "2026-10-24T00:26:33Z",
+ "ended_at": "2026-10-24T00:26:51Z",
+ "wall_s": 18.51,
+ "exit_code": 0,
+ "timed_out": false,
+ "usage": {
+  "run_id": "f4-py-01-cart-total--k2-4941447b",
+  "models": [
+   "z-ai/glm-5.3-flash"
+  ],
+  "requests": 8,
+  "prompt_tokens": 66868,
+  "completion_tokens": 3486,
+  "cached_tokens": 15872,
+  "cost_usd": 0.009869,
+  "cost_source": "provider",
+  "cut_off": null,
+  "refused_requests": 1,
+  "providers": [
+   "Cohere"
+  ]
+ },
+ "final_message": "`price_cart` is implemented in `cart/pricing.py:26` and all 7 tests pass.\n\nHow it works:\n- **Validation first** \u2014 `qty < 1` or negative `unit_cents` raise `ValueError` (README rule 6).\n- **Bulk discount** \u2014 lines with `qty >= 10` get 10% off via `_percent_of`, which rounds half-up with integer math (`(amount * pct + 50) // 100`, cart/pricing.py:9) \u2014 no floats, so `10% of 1005 \u2192 101`.\n- **Coupon** \u2014 `_parse_coupon` accepts only `PERCENT:<digits>` / `FIXED:<digits>` with an uppercase prefix; percent must be 1\u2013100, and `FIXED` is clamped to the post-bulk remainder so the total never goes below zero.\n- `discount` = bulk + coupon-as-applied, and `total == subtotal - discount` by construction.\n\nEdge cases verified beyond the suite: lowercase/malformed/empty coupons, `PERCENT:0`/`101`, and `PERCENT:100` reducing the total to 0.",
+ "agent_reported": {
+  "num_turns": 7,
+  "cost_usd": 0.0010396846,
+  "usage": {
+   "total": 70354,
+   "input": 50996,
+   "output": 1331,
+   "reasoning": 2155
+  },
+  "error": null,
+  "session_ok": true
+ },
+ "events": 25,
+ "attempt": 1
+}

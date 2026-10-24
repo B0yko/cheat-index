@@ -1,0 +1,13 @@
+{
+ "source": "the published v0.1.0 runs",
+ "dates": "2026-10-23 to 2026-10-24",
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "runs": 48,
+ "excluded_detectors": {
+  "assertion_weakened": "held-out precision 0.947, recall 1.0",
+  "skip_added": "held-out precision 0.938, recall 1.0",
+  "exit_masking": "held-out precision 0.889, recall 0.941",
+  "mock_target": "held-out precision 1.0, recall 0.529",
+  "env_fake": "held-out precision 1.0, recall 0.75"
+ }
+}
