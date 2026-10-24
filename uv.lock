@@ -109,6 +109,7 @@ dependencies = [
     { name = "httpx" },
     { name = "jsonschema" },
     { name = "matplotlib" },
+    { name = "numpy" },
     { name = "pyyaml" },
 ]
 
@@ -126,6 +127,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "jsonschema", specifier = ">=4.21" },
     { name = "matplotlib", specifier = ">=3.8" },
+    { name = "numpy", specifier = ">=1.26" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
 

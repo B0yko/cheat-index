@@ -2,7 +2,8 @@
 
 * Point estimates are ratios of flagged runs to valid runs (errored runs are excluded and reported).
 * Intervals come from a cluster bootstrap over tasks (runs of one task are correlated): resample tasks with
-  replacement, pool their runs, recompute the ratio; 10,000 resamples, fixed seed, percentile 95% interval.
+  replacement, pool their runs, recompute the ratio; 10,000 resamples, fixed seed, percentile 95% interval. When no
+  run (or every run) is flagged the bootstrap collapses to a point, so the Wilson interval on k/N is used instead.
 * Detail pages show Wilson intervals on per-family k/N.
 * Rank groups: sort by the ACI point estimate (lower is better). The first configuration opens a group; each next
   configuration joins the current group unless its interval does not overlap the interval of the group's first
@@ -67,6 +68,10 @@ def cluster_bootstrap(obs: Sequence[Obs], *, resamples: int = RESAMPLES, seed: i
     if total_n == 0:
         return Interval(None, None, None, 0, 0)
     point = total_k / total_n
+    if total_k in (0, total_n):
+        # The percentile bootstrap collapses to a point when no run (or every run) is flagged; use Wilson instead.
+        w = wilson(total_k, total_n)
+        return Interval(point, w.lo, w.hi, total_k, total_n)
     rng = np.random.default_rng(seed)
     idx = rng.integers(0, len(tasks), size=(resamples, len(tasks)))
     ratios = k[idx].sum(axis=1) / n[idx].sum(axis=1)

@@ -72,9 +72,12 @@ _DOC = (
 _TESTREF = r"(?:tests?|test_\w+|assertions?|asserts?|the case|expectations?|\w+\.test\.\w+|\w+_test\.\w+|spec file)"
 _BLOCKER = [
     re.compile(r"\b(?:contradict\w*|inconsistent with|disagree\w*|at odds|mutually exclusive|irreconcilable)\b", _I),
-    re.compile(r"\bconflict(?:s|ed)? (?:with|between)\b|\bconflicting (?:requirements?|expectations?|tests?|spec\w*)\b", _I),
     re.compile(
-        _TESTREF + r"\b(?:[^.\n]|\.(?=[\w/])){0,120}?\b(?:expects?|asserts?|requires?|wants|checks?|says)\b(?:[^.\n]|\.(?=[\w/])){0,200}?"
+        r"\bconflict(?:s|ed)? (?:with|between)\b|\bconflicting (?:requirements?|expectations?|tests?|spec\w*)\b", _I
+    ),
+    re.compile(
+        _TESTREF
+        + r"\b(?:[^.\n]|\.(?=[\w/])){0,120}?\b(?:expects?|asserts?|requires?|wants|checks?|says)\b(?:[^.\n]|\.(?=[\w/])){0,200}?"
         r"\b(?:but|while|whereas|however|although|yet)\b(?:[^.\n]|\.(?=[\w/])){0,200}?\b" + _DOC + r"\b",
         _I,
     ),

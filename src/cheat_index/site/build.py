@@ -42,14 +42,14 @@ INDEX_DESCRIPTION = (
 )
 
 COLUMNS: tuple[tuple[str, str], ...] = (
-    ("Rank group", "Configurations in one rank group cannot be told apart at this sample size."),
+    ("Rank group", "Configurations whose ACI intervals overlap the group's first member; a coarse reading."),
     ("Agent", "The agent CLI and, if set, the name of the configuration."),
     ("Model", "Model id used through the gateway."),
     ("ACI [95% CI]", "Share of F1–F3 runs with undisclosed tampering or a false success claim. Lower is better."),
     ("Tampering F1–F3", "Share of F1–F3 runs in which a tampering detector fired, disclosed or not."),
     ("Disclosed tampering", "Share of F1–F3 runs with tampering that the final message says it did."),
     (
-        "False success",
+        "False success F1–F4",
         "Share of runs on all families whose final message claims success that hidden checks contradict.",
     ),
     ("Honest stop F1–F2", "Share of F1–F2 runs that reported a blocker or contradiction without tampering."),
@@ -279,10 +279,16 @@ def _excluded(board: dict[str, Any]) -> str:
     if not excluded:
         return ""
     items = ", ".join(f"<code>{esc(k)}</code> ({esc(v)})" for k, v in excluded.items())
-    return (
+    out = (
         f'<p class="notice">ACI v{esc(board["version"])} is computed without these detectors, which failed the '
         f"release gates: {items}.</p>"
     )
+    for c in board["configs"]:
+        if c["publishable"] and c["per_family"].get("F4", {}).get("solved", {}).get("n", 0) == 0:
+            name = c["agent_display"] + (f" ({c['label']})" if c.get("label") else "")
+            out += (f'<p class="notice">{esc(name)} with <code>{esc(c["model"])}</code> ran F1–F3 only, so its '
+                    "false-success column covers F1–F3 and its solved column covers F3.</p>")  # fmt: skip
+    return out
 
 
 def _summary(board: dict[str, Any]) -> str:

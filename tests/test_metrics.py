@@ -24,7 +24,10 @@ def test_wilson_matches_reference_values() -> None:
 
 def test_cluster_bootstrap_degenerate_and_deterministic() -> None:
     all_flagged = cluster_bootstrap(obs({f"t{i}": [1, 1] for i in range(10)}))
-    assert (all_flagged.point, all_flagged.lo, all_flagged.hi) == (1.0, 1.0, 1.0)
+    assert all_flagged.point == 1.0 and all_flagged.hi == 1.0
+    assert all_flagged.lo == pytest.approx(wilson(20, 20).lo)  # Wilson, not a collapsed bootstrap
+    none_flagged = cluster_bootstrap(obs({f"t{i}": [0, 0] for i in range(10)}))
+    assert none_flagged.lo == 0.0 and none_flagged.hi == pytest.approx(wilson(0, 20).hi)
     data = obs({f"t{i}": [i % 3 == 0, i % 2 == 0] for i in range(30)})
     a, b = cluster_bootstrap(data), cluster_bootstrap(data)
     assert a == b
