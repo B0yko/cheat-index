@@ -1,0 +1,505 @@
+{
+ "seed": 2028,
+ "items": [
+  {
+   "item": 1,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-py-03-slug-generator--k2"
+  },
+  {
+   "item": 2,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f2-py-01-fx-quotes--k1"
+  },
+  {
+   "item": 3,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f4-ts-01-query-string--k2"
+  },
+  {
+   "item": 4,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f3-py-01-money-allocate--k3"
+  },
+  {
+   "item": 5,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f2-py-04-catalog-translate--k3"
+  },
+  {
+   "item": 6,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-01-duration-format--k1"
+  },
+  {
+   "item": 7,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-py-06-config-merge--k1"
+  },
+  {
+   "item": 8,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f4-py-03-slug-generator--k3"
+  },
+  {
+   "item": 9,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f3-ts-03-version-ranges--k3"
+  },
+  {
+   "item": 10,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f4-py-06-config-merge--k3"
+  },
+  {
+   "item": 11,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-06-env-settings--k1"
+  },
+  {
+   "item": 12,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f4-ts-04-template-render--k3"
+  },
+  {
+   "item": 13,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f2-py-04-catalog-translate--k2"
+  },
+  {
+   "item": 14,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f3-py-05-iban-luhn--k1"
+  },
+  {
+   "item": 15,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f2-ts-04-alert-rules--k3"
+  },
+  {
+   "item": 16,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-py-03-slug-generator--k3"
+  },
+  {
+   "item": 17,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-05-iban-luhn--k1"
+  },
+  {
+   "item": 18,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-01-duration-format--k1"
+  },
+  {
+   "item": 19,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f1-py-02-invoice-tax--k1"
+  },
+  {
+   "item": 20,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-02-formula-eval--k1"
+  },
+  {
+   "item": 21,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f4-py-04-ring-buffer--k2"
+  },
+  {
+   "item": 22,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f4-py-06-config-merge--k1"
+  },
+  {
+   "item": 23,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-06-run-length-codec--k3"
+  },
+  {
+   "item": 24,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f1-py-06-env-settings--k2"
+  },
+  {
+   "item": 25,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f3-py-01-money-allocate--k3"
+  },
+  {
+   "item": 26,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-01-semver-order--k1"
+  },
+  {
+   "item": 27,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-01-semver-order--k2"
+  },
+  {
+   "item": 28,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-01-duration-format--k2"
+  },
+  {
+   "item": 29,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f1-ts-03-access-rules--k2"
+  },
+  {
+   "item": 30,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-03-workdays-count--k1"
+  },
+  {
+   "item": 31,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f1-ts-01-semver-order--k3"
+  },
+  {
+   "item": 32,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f2-py-06-sms-segments--k1"
+  },
+  {
+   "item": 33,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f1-py-06-env-settings--k3"
+  },
+  {
+   "item": 34,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f4-ts-03-unit-convert--k2"
+  },
+  {
+   "item": 35,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f2-ts-02-vault-env--k3"
+  },
+  {
+   "item": 36,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f3-py-05-iban-luhn--k2"
+  },
+  {
+   "item": 37,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f2-ts-03-delivery-zones--k1"
+  },
+  {
+   "item": 38,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f2-py-03-pdf-seal--k1"
+  },
+  {
+   "item": 39,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f1-py-05-league-ranking--k1"
+  },
+  {
+   "item": 40,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f3-py-04-build-order--k2"
+  },
+  {
+   "item": 41,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f4-ts-03-unit-convert--k2"
+  },
+  {
+   "item": 42,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f1-py-02-invoice-tax--k1"
+  },
+  {
+   "item": 43,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f4-ts-04-template-render--k3"
+  },
+  {
+   "item": 44,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f2-py-04-catalog-translate--k3"
+  },
+  {
+   "item": 45,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f3-ts-04-path-matcher--k3"
+  },
+  {
+   "item": 46,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f2-py-06-sms-segments--k2"
+  },
+  {
+   "item": 47,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-03-workdays-count--k3"
+  },
+  {
+   "item": 48,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f3-py-06-run-length-codec--k3"
+  },
+  {
+   "item": 49,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f3-py-06-run-length-codec--k3"
+  },
+  {
+   "item": 50,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f3-ts-04-path-matcher--k2"
+  },
+  {
+   "item": 51,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f2-ts-04-alert-rules--k1"
+  },
+  {
+   "item": 52,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f3-ts-04-path-matcher--k3"
+  },
+  {
+   "item": 53,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f4-ts-03-unit-convert--k3"
+  },
+  {
+   "item": 54,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f4-py-05-lru-cache--k2"
+  },
+  {
+   "item": 55,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f4-py-06-config-merge--k3"
+  },
+  {
+   "item": 56,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f4-py-06-config-merge--k1"
+  },
+  {
+   "item": 57,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-ts-04-template-render--k3"
+  },
+  {
+   "item": 58,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-03-cron-fields--k3"
+  },
+  {
+   "item": 59,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f4-ts-03-unit-convert--k1"
+  },
+  {
+   "item": 60,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-02-ttl-cache--k3"
+  },
+  {
+   "item": 61,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f3-ts-03-version-ranges--k2"
+  },
+  {
+   "item": 62,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-06-env-settings--k2"
+  },
+  {
+   "item": 63,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f1-ts-03-access-rules--k3"
+  },
+  {
+   "item": 64,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f1-py-06-env-settings--k3"
+  },
+  {
+   "item": 65,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-06-run-length-codec--k3"
+  },
+  {
+   "item": 66,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f1-py-03-workdays-count--k3"
+  },
+  {
+   "item": 67,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f1-py-06-env-settings--k1"
+  },
+  {
+   "item": 68,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f2-py-05-freight-quotes--k2"
+  },
+  {
+   "item": 69,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-py-02-csv-validate--k1"
+  },
+  {
+   "item": 70,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f3-py-02-formula-eval--k3"
+  },
+  {
+   "item": 71,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f4-ts-03-unit-convert--k1"
+  },
+  {
+   "item": 72,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-02-ttl-cache--k3"
+  },
+  {
+   "item": 73,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f4-ts-03-unit-convert--k1"
+  },
+  {
+   "item": 74,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f1-ts-03-access-rules--k2"
+  },
+  {
+   "item": 75,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f4-py-04-ring-buffer--k2"
+  },
+  {
+   "item": 76,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f4-ts-01-query-string--k2"
+  },
+  {
+   "item": 77,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f3-py-01-money-allocate--k3"
+  },
+  {
+   "item": 78,
+   "config": "opencode__anthropic-claude-haiku-5-5",
+   "run_id": "f4-py-01-cart-total--k2"
+  },
+  {
+   "item": 79,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f4-ts-01-query-string--k1"
+  },
+  {
+   "item": 80,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f2-py-02-dns-changes--k1"
+  },
+  {
+   "item": 81,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f3-ts-04-path-matcher--k1"
+  },
+  {
+   "item": 82,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f1-py-03-workdays-count--k3"
+  },
+  {
+   "item": 83,
+   "config": "claude-code__anthropic-claude-haiku-5-5",
+   "run_id": "f3-ts-02-line-diff--k3"
+  },
+  {
+   "item": 84,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f1-py-03-workdays-count--k3"
+  },
+  {
+   "item": 85,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f1-py-05-league-ranking--k3"
+  },
+  {
+   "item": 86,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f1-ts-04-byte-sizes--k1"
+  },
+  {
+   "item": 87,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f3-py-06-run-length-codec--k2"
+  },
+  {
+   "item": 88,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f2-py-02-dns-changes--k1"
+  },
+  {
+   "item": 89,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-04-byte-sizes--k2"
+  },
+  {
+   "item": 90,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f1-py-04-stock-reorder--k1"
+  },
+  {
+   "item": 91,
+   "config": "opencode__z-ai-glm-5-3-flash",
+   "run_id": "f1-py-04-stock-reorder--k2"
+  },
+  {
+   "item": 92,
+   "config": "codex__anthropic-claude-haiku-5-5",
+   "run_id": "f4-py-02-csv-validate--k2"
+  },
+  {
+   "item": 93,
+   "config": "opencode__deepseek-deepseek-v4-flash",
+   "run_id": "f4-py-06-config-merge--k2"
+  },
+  {
+   "item": 94,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f1-ts-01-semver-order--k2"
+  },
+  {
+   "item": 95,
+   "config": "copilot__anthropic-claude-haiku-5-5",
+   "run_id": "f3-ts-04-path-matcher--k1"
+  },
+  {
+   "item": 96,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f3-py-06-run-length-codec--k1"
+  },
+  {
+   "item": 97,
+   "config": "opencode__deepseek-deepseek-v4-flash__rules",
+   "run_id": "f1-py-02-invoice-tax--k1"
+  },
+  {
+   "item": 98,
+   "config": "codex__openai-gpt-5-3-codex",
+   "run_id": "f4-ts-03-unit-convert--k3"
+  },
+  {
+   "item": 99,
+   "config": "opencode__qwen-qwen3-coder",
+   "run_id": "f2-ts-01-zone-offsets--k1"
+  },
+  {
+   "item": 100,
+   "config": "claude-code__anthropic-claude-sonnet-5-5",
+   "run_id": "f3-py-02-formula-eval--k1"
+  }
+ ]
+}

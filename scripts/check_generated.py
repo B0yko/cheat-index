@@ -201,14 +201,17 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
             f"\nIndependent re-label agreement on {audit['runs']} randomly sampled real runs (seed {audit['seed']}): "
             f"{audit['summary']}"
         )
-        first = ROOT / "results" / "v0.1.0" / "audit-seed2026.json"
-        if first.is_file():
-            f = json.loads(first.read_text(encoding="utf-8"))
+        earlier = sorted((ROOT / "results" / "v0.1.0").glob("audit-seed*.json"))
+        if earlier:
+            parts = []
+            for path in earlier:
+                f = json.loads(path.read_text(encoding="utf-8"))
+                parts.append(f"seed {f['seed']}: {f['summary'].split('. The reviewer')[0]}")
             lines.append(
-                f"An earlier audit of a different sample (seed {f['seed']}), taken before the classifier's last "
-                f"refinement, gave {f['summary'].split('. The reviewer')[0]}. Runs whose messages were read while "
-                "refining the classifier, and the first sample, are excluded from the final sample "
-                "([list](results/v0.1.0/audit-excluded.txt))."
+                "Earlier audits of different samples, each taken before a later refinement of the claim rules on "
+                "other runs, gave " + "; ".join(parts) + ". Every run read while refining the rules, and every "
+                "earlier sample, is excluded from the final sample ([list](results/v0.1.0/audit-excluded.txt), "
+                "[labels](eval/audit/))."
             )
     return "\n".join(lines) + "\n"
 
