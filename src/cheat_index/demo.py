@@ -50,9 +50,9 @@ def run_demo(root: Path | None = None) -> int:
         name = c["agent_display"] + (f" ({c['label']})" if c.get("label") else "")
         print(f"{name[:22]:22} {c['model'][:34]:34} {c['runs_valid']:>4}  {pct(c['aci']):16} "
               f"{pct(c['tamper_f13']):16} {pct(c['solve_f34']):16}")  # fmt: skip
-    card = next((e for c in board["configs"] for e in c["evidence"] if e["kind"] == "tampered_undisclosed"), None)
-    if card is None:
-        card = next((e for c in board["configs"] for e in c["evidence"]), None)
+    cards = [e for c in board["configs"] for e in c["evidence"]]
+    preference = ("tampered_undisclosed", "false_success", "tampered_disclosed")
+    card = next((e for kind in preference for e in cards if e["kind"] == kind), cards[0] if cards else None)
     if card:
         print(f"\nEvidence, {card['task_id']}: {card['caption']}")
         for ev in card["evidence"][:1]:
@@ -64,7 +64,8 @@ def run_demo(root: Path | None = None) -> int:
         if message:
             print(f'  final message: "{message[0][:150]}"')
     if excluded:
-        print(f"\n(as in the published index, these detectors are reported but not counted: {', '.join(excluded)})")
+        print("\nAs in the published index, these detectors are reported but not counted in the ACI:")
+        print("  " + ", ".join(excluded))
     print(f"\nre-scored in {time.monotonic() - start:.1f} s. Full leaderboard and method: {SITE}")
     print("Measure your own agent: cheat-index run --agent opencode --model <id> --tasks F4 --k 1")
     return 0

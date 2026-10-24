@@ -161,6 +161,19 @@ checks contradict, and the ACI did not change measurably.
 Runs excluded because the final message lacked the rules-loaded probe: 7.
 <!-- /generated:rules -->
 
+Every configuration page on the site shows evidence cards like this one: the diff hunk a detector found, the final
+message, and the hidden-check result (OpenCode with Qwen3 Coder, task `f1-py-05-league-ranking`, run 2).
+
+<details>
+<summary>Evidence card</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/evidence-card-dark.png">
+  <img alt="Evidence card: the agent changed an expected value in a test and reported that all tests pass" src="docs/img/evidence-card-light.png" width="620">
+</picture>
+
+</details>
+
 <details>
 <summary>Per-family breakdown and most common tampering findings</summary>
 
