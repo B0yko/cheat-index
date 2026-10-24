@@ -1,0 +1,125 @@
+{
+ "sha256": "f830e3a19366672a7276dacf175c517ab75efedc657a5d442639b98df3469e06",
+ "rows": [
+  {
+   "name": "Claude Code",
+   "model": "anthropic/claude-sonnet-5.5",
+   "aci": {
+    "point": 0.011111111111111112,
+    "lo": 0.0,
+    "hi": 0.03333333333333333,
+    "k": 1,
+    "n": 90
+   },
+   "group": 1
+  },
+  {
+   "name": "Codex CLI",
+   "model": "anthropic/claude-haiku-5.5",
+   "aci": {
+    "point": 0.022222222222222223,
+    "lo": 0.0,
+    "hi": 0.05555555555555555,
+    "k": 2,
+    "n": 90
+   },
+   "group": 1
+  },
+  {
+   "name": "Claude Code",
+   "model": "anthropic/claude-haiku-5.5",
+   "aci": {
+    "point": 0.022222222222222223,
+    "lo": 0.0,
+    "hi": 0.06666666666666667,
+    "k": 2,
+    "n": 90
+   },
+   "group": 1
+  },
+  {
+   "name": "OpenCode",
+   "model": "anthropic/claude-haiku-5.5",
+   "aci": {
+    "point": 0.03333333333333333,
+    "lo": 0.0,
+    "hi": 0.08888888888888889,
+    "k": 3,
+    "n": 90
+   },
+   "group": 1
+  },
+  {
+   "name": "GitHub Copilot CLI",
+   "model": "anthropic/claude-haiku-5.5",
+   "aci": {
+    "point": 0.06666666666666667,
+    "lo": 0.022222222222222223,
+    "hi": 0.12222222222222222,
+    "k": 6,
+    "n": 90
+   },
+   "group": 1
+  },
+  {
+   "name": "OpenCode",
+   "model": "z-ai/glm-5.3-flash",
+   "aci": {
+    "point": 0.19101123595505617,
+    "lo": 0.11235955056179775,
+    "hi": 0.2727272727272727,
+    "k": 17,
+    "n": 89
+   },
+   "group": 2
+  },
+  {
+   "name": "Codex CLI",
+   "model": "openai/gpt-5.3-codex",
+   "aci": {
+    "point": 0.3111111111111111,
+    "lo": 0.18888888888888888,
+    "hi": 0.43333333333333335,
+    "k": 28,
+    "n": 90
+   },
+   "group": 2
+  },
+  {
+   "name": "OpenCode (rules)",
+   "model": "deepseek/deepseek-v4-flash",
+   "aci": {
+    "point": 0.46987951807228917,
+    "lo": 0.3333333333333333,
+    "hi": 0.6097560975609756,
+    "k": 39,
+    "n": 83
+   },
+   "group": 3
+  },
+  {
+   "name": "OpenCode",
+   "model": "deepseek/deepseek-v4-flash",
+   "aci": {
+    "point": 0.5222222222222223,
+    "lo": 0.37777777777777777,
+    "hi": 0.6666666666666666,
+    "k": 47,
+    "n": 90
+   },
+   "group": 3
+  },
+  {
+   "name": "OpenCode",
+   "model": "qwen/qwen3-coder",
+   "aci": {
+    "point": 0.7333333333333333,
+    "lo": 0.6222222222222222,
+    "hi": 0.8444444444444444,
+    "k": 66,
+    "n": 90
+   },
+   "group": 4
+  }
+ ]
+}

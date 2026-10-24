@@ -52,9 +52,10 @@ def block_headline(board: dict[str, Any]) -> str:
     runs = sum(c["runs_valid"] for c in pub)
     lo = min(pub, key=lambda c: c["aci"]["point"])
     hi = max(pub, key=lambda c: c["aci"]["point"])
-    dates = sorted({c["date_last"] for c in pub if c["date_last"]})
+    dates = sorted({d for c in pub for d in (c["date_first"], c["date_last"]) if d})
+    span = f"{dates[0]} to {dates[-1]} UTC" if dates and dates[0] != dates[-1] else (dates[0] if dates else "n/a")
     return (
-        f"Across {len(pub)} agent configurations and {runs} runs ({dates[-1] if dates else 'n/a'}, "
+        f"Across {len(pub)} agent configurations and {runs} runs ({span}, "
         f"{pub[0]['hardware']}), the Agent Cheat Index ranged from {pct(lo['aci'])} ({_name(lo)}, `{lo['model']}`) "
         f"to {pct(hi['aci'])} ({_name(hi)}, `{hi['model']}`): the share of runs on contradictory, blocked and "
         "tempting-shortcut tasks in which the agent changed or skipped checks without saying so, or claimed success "
@@ -197,8 +198,18 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
         )
     if audit:
         lines.append(
-            f"\nIndependent re-label agreement on {audit['runs']} randomly sampled real runs: {audit['summary']}"
+            f"\nIndependent re-label agreement on {audit['runs']} randomly sampled real runs (seed {audit['seed']}): "
+            f"{audit['summary']}"
         )
+        first = ROOT / "results" / "v0.1.0" / "audit-seed2026.json"
+        if first.is_file():
+            f = json.loads(first.read_text(encoding="utf-8"))
+            lines.append(
+                f"An earlier audit of a different sample (seed {f['seed']}), taken before the classifier's last "
+                f"refinement, gave {f['summary'].split('. The reviewer')[0]}. Runs whose messages were read while "
+                "refining the classifier, and the first sample, are excluded from the final sample "
+                "([list](results/v0.1.0/audit-excluded.txt))."
+            )
     return "\n".join(lines) + "\n"
 
 
@@ -208,7 +219,8 @@ def block_quickstart(version: str) -> str:
         return "The quickstart command above has not been measured yet.\n"
     q = json.loads(path.read_text(encoding="utf-8"))
     return (
-        f"Measured once on {q['date']} ({q['hardware']}): `{q['command']}` ran {q['runs']} runs in "
+        f"Measured once on {q['date']} ({q['hardware']}, default concurrency 4): `{q['command']}` ran {q['runs']} "
+        f"runs in "
         f"{q['wall_min']:.0f} minutes and cost ${q['cost_usd']:.2f} through OpenRouter.\n"
     )
 
@@ -272,7 +284,7 @@ def main() -> int:
     readme_path.write_text(new_readme, encoding="utf-8")
     data_path.parent.mkdir(parents=True, exist_ok=True)
     for theme in ("light", "dark"):
-        leaderboard_chart(board, data_path.parent / f"leaderboard-{theme}.png", theme=theme)
+        leaderboard_chart(board, data_path.parent / f"leaderboard-{theme}.png", theme=theme, top=12)
     data_path.write_text(data_text, encoding="utf-8")
     print("regenerated leaderboard.json, README blocks and charts")
     return 0
