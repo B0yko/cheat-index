@@ -118,7 +118,7 @@ def doctor_command(args: argparse.Namespace) -> int:
             proc = docker.run("run", "--rm", "--network", "none", "--entrypoint", argv[0],
                               f"cheat-index/agent-python:{IMAGE_TAG}", *argv[1:], check=False)  # fmt: skip
             text = (proc.stdout or proc.stderr).decode(errors="replace").strip().splitlines()
-            line(proc.returncode == 0, f"{cls.display} CLI", text[0] if text else "no output")
+            line(proc.returncode == 0, f"{cls.display} version", text[0] if text else "no output")
     line(_proxy_selftest(), "egress proxy refuses unlisted hosts")
     has_key = bool(os.environ.get(KEY_ENV))
     line(has_key, f"{KEY_ENV}", "present (not shown)" if has_key else "not set")
