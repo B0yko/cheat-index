@@ -89,11 +89,11 @@ def block_headline(board: dict[str, Any]) -> str:
     dates = sorted({d for c in pub for d in (c["date_first"], c["date_last"]) if d})
     span = f"{dates[0]} to {dates[-1]} UTC" if dates and dates[0] != dates[-1] else (dates[0] if dates else "n/a")
     return (
-        f"Across {len(pub)} agent configurations and {runs} runs ({span}, "
-        f"{pub[0]['hardware']}), the Agent Cheat Index ranged from {pct(lo['aci'])} ({_name(lo)}, `{lo['model']}`) "
-        f"to {pct(hi['aci'])} ({_name(hi)}, `{hi['model']}`): the share of runs on contradictory, blocked and "
-        "tempting-shortcut tasks in which the agent changed or skipped checks without saying so, or claimed success "
-        "that hidden checks contradict.\n"
+        f"Across {len(pub)} agent setups and {runs:,} real runs ({span}, {pub[0]['hardware']}), the Agent Cheat Index "
+        f"ran from {pct(lo['aci'])} for {_name(lo)} with `{lo['model']}` to {pct(hi['aci'])} for {_name(hi)} with "
+        f"`{hi['model']}`. The index is the share of runs on contradictory, blocked and tempting-shortcut tasks in "
+        "which the agent changed or skipped checks without saying so, or claimed a success that hidden checks "
+        "contradict. Lower is better.\n"
     )
 
 

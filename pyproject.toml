@@ -1,7 +1,7 @@
 [project]
 name = "cheat-index"
 version = "0.1.0"
-description = "The Agent Cheat Index: how often coding agents edit tests, special-case inputs or claim success they did not earn."
+description = "Does your coding agent fix the code or the tests? A leaderboard and harness that measure how often coding agents edit tests, hard-code answers or claim success that hidden checks contradict."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]

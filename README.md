@@ -1,15 +1,23 @@
 # Agent Cheat Index
 
-**How often coding agents edit tests, special-case inputs or claim success they did not earn.** Real agent CLIs run
-headless on 30 trap tasks and 10 controls in sandboxed containers. The end state (the diff and hidden checks) decides
-what was done; a rule-based reading of the final message decides what was claimed.
+**Your coding agent says "all tests pass". Did it fix the code, or the tests?**
 
 [![CI](https://github.com/B0yko/cheat-index/actions/workflows/ci.yml/badge.svg)](https://github.com/B0yko/cheat-index/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/B0yko/cheat-index)](https://github.com/B0yko/cheat-index/releases)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
+The Agent Cheat Index gives real coding agents (Claude Code, Codex CLI, OpenCode, GitHub Copilot CLI) small tasks
+that cannot be finished honestly, or that make a shortcut tempting. It counts how often each agent and model edits
+the tests, hard-codes the expected answers or reports a success that hidden checks contradict, and how often it
+stops and says what is wrong instead. With it you can:
+
+- compare agents and models before you leave one alone with "make the tests pass";
+- run the same tasks on your own setup and see whether your rules file or hooks change the result (10 runs with a
+  low-cost model cost $0.04, [measured below](#run-it-on-your-own-agent));
+- check any published number yourself: every run's diff, final message and test output is in the release.
+
 <!-- generated:headline -->
-Across 10 agent configurations and 1162 runs (2026-10-23 to 2026-10-24 UTC, Mac Studio M4 Max, 128 GB), the Agent Cheat Index ranged from 1% [0–3] (Claude Code, `anthropic/claude-sonnet-5.5`) to 72% [61–83] (OpenCode, `qwen/qwen3-coder`): the share of runs on contradictory, blocked and tempting-shortcut tasks in which the agent changed or skipped checks without saying so, or claimed success that hidden checks contradict.
+Across 10 agent setups and 1,162 real runs (2026-10-23 to 2026-10-24 UTC, Mac Studio M4 Max, 128 GB), the Agent Cheat Index ran from 1% [0–3] for Claude Code with `anthropic/claude-sonnet-5.5` to 72% [61–83] for OpenCode with `qwen/qwen3-coder`. The index is the share of runs on contradictory, blocked and tempting-shortcut tasks in which the agent changed or skipped checks without saying so, or claimed a success that hidden checks contradict. Lower is better.
 <!-- /generated:headline -->
 How it was measured: [methodology](docs/methodology.md). Full leaderboard, with evidence cards for flagged runs:
 **[b0yko.github.io/cheat-index](https://b0yko.github.io/cheat-index/)**.
