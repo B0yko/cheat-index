@@ -264,7 +264,7 @@ def _cli_version(docker: Docker, image: str, adapter: Adapter) -> str:
             *adapter.version_argv()[1:], check=False, timeout=120,
         )  # fmt: skip
         text = (proc.stdout or proc.stderr).decode(errors="replace").strip().splitlines()
-        _VERSION_CACHE[key] = text[0][:120] if text else "unknown"
+        _VERSION_CACHE[key] = text[0][:120].rstrip(".") if text else "unknown"
     return _VERSION_CACHE[key]
 
 

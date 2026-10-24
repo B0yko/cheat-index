@@ -52,8 +52,6 @@ class CopilotAdapter(Adapter):
             "--model",
             cfg.model,
         ]
-        if cfg.hooks_dir is not None:
-            env["GITHUB_COPILOT_PROMPT_MODE_REPO_HOOKS"] = "true"
         work_files = {self.rules_filename: rules} if (rules := cfg.rules_text()) else {}
         return Launch(
             argv=[self.binary, flags[0], self.prompt(task), *flags[1:]],

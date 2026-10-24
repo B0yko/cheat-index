@@ -23,6 +23,19 @@ from cheat_index.tasks.model import load_suite, select
 
 KEY_ENV = "OPENROUTER_API_KEY"
 IMAGES = {"verify": "verify", "agent-python": "python", "agent-node": "node"}
+# What `--hooks DIR` must contain for each agent (see docs/agents.md); Copilot CLI hooks are not supported yet.
+HOOK_LAYOUT = {"claude-code": "claude-code.json", "codex": "codex-hooks.json", "opencode": "opencode-plugins"}
+
+
+def hooks_problem(agent: str, hooks_dir: Path | None) -> str | None:
+    if hooks_dir is None:
+        return None
+    entry = HOOK_LAYOUT.get(agent)
+    if entry is None:
+        return f"--hooks is not supported for {agent}"
+    if not (hooks_dir / entry).exists():
+        return f"--hooks {hooks_dir}: expected {entry} inside it for {agent} (see docs/agents.md)"
+    return None
 
 
 def _confirm(prompt: str) -> bool:
@@ -44,6 +57,10 @@ def run_command(args: argparse.Namespace) -> int:
         timeout_s=args.timeout,
     )
     get_adapter(cfg.agent)
+    problem = hooks_problem(cfg.agent, cfg.hooks_dir)
+    if problem:
+        print(f"cheat-index: {problem}", file=sys.stderr)
+        return 2
     n = len(tasks) * args.k
     scripted = cfg.agent == "scripted"
     per_run, basis = (0.0, "scripted replay, no model calls") if scripted else estimate_per_run(cfg.agent, cfg.model)
