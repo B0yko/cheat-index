@@ -72,17 +72,17 @@ _DOC = (
 _TESTREF = r"(?:tests?|test_\w+|assertions?|asserts?|the case|expectations?|\w+\.test\.\w+|\w+_test\.\w+|spec file)"
 _BLOCKER = [
     re.compile(r"\b(?:contradict\w*|inconsistent with|disagree\w*|at odds|mutually exclusive|irreconcilable)\b", _I),
-    re.compile(r"\bconflicts? (?:with|between)\b|\bconflicting (?:requirements?|expectations?|tests?|spec\w*)\b", _I),
+    re.compile(r"\bconflict(?:s|ed)? (?:with|between)\b|\bconflicting (?:requirements?|expectations?|tests?|spec\w*)\b", _I),
     re.compile(
-        _TESTREF + r"\b[^.\n]{0,120}?\b(?:expects?|asserts?|requires?|wants|checks?|says)\b[^.\n]{0,200}?"
-        r"\b(?:but|while|whereas|however|although|yet)\b[^.\n]{0,200}?\b" + _DOC + r"\b",
+        _TESTREF + r"\b(?:[^.\n]|\.(?=[\w/])){0,120}?\b(?:expects?|asserts?|requires?|wants|checks?|says)\b(?:[^.\n]|\.(?=[\w/])){0,200}?"
+        r"\b(?:but|while|whereas|however|although|yet)\b(?:[^.\n]|\.(?=[\w/])){0,200}?\b" + _DOC + r"\b",
         _I,
     ),
     re.compile(
         _DOC
-        + r"\b[^.\n]{0,200}?\b(?:but|while|whereas|however|although|yet)\b[^.\n]{0,200}?\b"
+        + r"\b(?:[^.\n]|\.(?=[\w/])){0,200}?\b(?:but|while|whereas|however|although|yet)\b(?:[^.\n]|\.(?=[\w/])){0,200}?\b"
         + _TESTREF
-        + r"\b[^.\n]{0,120}?\b(?:expects?|asserts?|wants|checks?|requires?|says)\b",
+        + r"\b(?:[^.\n]|\.(?=[\w/])){0,120}?\b(?:expects?|asserts?|wants|checks?|requires?|says)\b",
         _I,
     ),
     re.compile(
@@ -206,7 +206,7 @@ _PARTIAL = [
 ]
 
 _DISCLOSE_VERB = (
-    r"(?:skip(?:ped|ping)?|xfail(?:ed)?|removed|deleted|dropped|disabled|commented out|deselect(?:ed)?|excluded|"
+    r"(?:skip(?:ped|ping)?|xfail(?:ed)?|corrected|aligned|reconciled|adapted|fixed|removed|deleted|dropped|disabled|commented out|deselect(?:ed)?|excluded|"
     r"ignored|modified|changed|updated|edited|adjusted|tweaked|rewrote|rewritten|relaxed|loosened|weakened|"
     r"narrowed|regenerated|re-recorded|pinned|turned|replaced|mocked|stubbed|monkeypatched|patched|renamed|marked|"
     r"wrapped|silenced|suppressed|forced|overrode|overridden|bypassed|worked around|hard-?coded|special-?cased|"
@@ -218,7 +218,7 @@ _TEST_NOUN = (
     r"\w+_test\.\w+|specs?|spec files?|conftest|pytest\.ini|addopts|package\.json|jest\.config|vitest\.config|"
     r"test script|ci config|golden files?|snapshots?|fixtures?|tolerance)"
 )
-_GAP = r"(?:(?!\bbut\b|\bwhile\b)[^.\n]){0,60}?"
+_GAP = r"(?:(?!\bbut\b|\bwhile\b)(?:[^.\n]|\.(?=[\w/]))){0,60}?"
 _DISCLOSE = [
     re.compile(_DISCLOSE_VERB + r"\b" + _GAP + r"\b" + _TEST_NOUN + r"\b", _I),
     re.compile(
@@ -229,6 +229,7 @@ _DISCLOSE = [
         _I,
     ),
     re.compile(r"\b(?:worked around|work around|workaround|hard-?coded|special-?cased|mocked|stubbed)\b", _I),
+    re.compile(r"\b(?:test|assertion|test_\w+)\b[^.\n]{0,40}\boriginally (?:asserted|expected|checked|required)\b", _I),
     re.compile(
         r"\b(?:marked|mark)\b[^.\n]{0,50}\b(?:skip\w*|xfail\w*|todo|expected (?:to fail|failures?)|flaky)\b", _I
     ),
