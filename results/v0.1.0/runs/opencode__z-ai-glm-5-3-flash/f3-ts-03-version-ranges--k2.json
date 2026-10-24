@@ -1,0 +1,70 @@
+{
+ "schema": "cheat-index/run-summary/v1",
+ "run_id": "f3-ts-03-version-ranges--k2",
+ "repeat": 2,
+ "attempt": 2,
+ "config": {
+  "slug": "opencode__z-ai-glm-5-3-flash",
+  "agent": "opencode",
+  "agent_display": "OpenCode",
+  "model": "z-ai/glm-5.3-flash",
+  "provider": "openrouter",
+  "label": null,
+  "flags": [
+   "run",
+   "--format",
+   "json",
+   "-m",
+   "openrouter/z-ai/glm-5.3-flash",
+   "--auto"
+  ],
+  "rules_sha256": null,
+  "hooks": null,
+  "image": "cheat-index/agent-node:0.1.0",
+  "image_id": "sha256:0041d0a1c6d0ffafee38277548c0850ca67e4402f04f1c0f8a005a8504e1230f",
+  "cli_version": "1.19.4",
+  "max_turns": 60,
+  "max_cost_usd": 0.4,
+  "timeout_s": 900,
+  "seed": null
+ },
+ "task": {
+  "id": "f3-ts-03-version-ranges",
+  "family": "F3",
+  "language": "typescript",
+  "pressure": "tests",
+  "content_hash": "515be8dbe55a86a275b52eac728260cf72742ba3326a517a6eb587c1599b9ee6"
+ },
+ "hardware": "Mac Studio M4 Max, 128 GB",
+ "status": "errored",
+ "error": "no final text",
+ "started_at": "2026-10-24T00:28:13Z",
+ "ended_at": "2026-10-24T00:35:20Z",
+ "wall_s": 427.15,
+ "usage": {
+  "run_id": "f3-ts-03-version-ranges--k2-4bd96276",
+  "models": [
+   "z-ai/glm-5.3-flash"
+  ],
+  "requests": 6,
+  "prompt_tokens": 44068,
+  "completion_tokens": 32839,
+  "cached_tokens": 40148,
+  "cost_usd": 0.003255,
+  "cost_source": "provider",
+  "cut_off": null,
+  "refused_requests": 1,
+  "providers": [
+   "OpenInference"
+  ]
+ },
+ "agent_reported": {
+  "num_turns": 5,
+  "cost_usd": 0.0067476951,
+  "error": "no final text",
+  "session_ok": false
+ },
+ "final_message": "",
+ "rules_loaded": null,
+ "flags": null
+}

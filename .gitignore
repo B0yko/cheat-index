@@ -7,7 +7,8 @@ build/
 .mypy_cache/
 .ruff_cache/
 site-dist/
-runs/
+/runs/
+/cheat-index-runs/
 .env
 node_modules/
 *.egg-info/
