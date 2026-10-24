@@ -36,8 +36,9 @@ def run_demo(root: Path | None = None) -> int:
     for d in dirs:
         record = json.loads((d / "record.json").read_text(encoding="utf-8"))
         summaries.append(summarise(tasks[record["task"]["id"]], d))
-    board = build_leaderboard(summaries, source="bundled demo sample")
     meta = json.loads(package_data("demo", "SAMPLE.json").read_text(encoding="utf-8"))
+    excluded = dict(meta.get("excluded_detectors") or {})
+    board = build_leaderboard(summaries, excluded_detectors=excluded, source="bundled demo sample")
     print(f"Agent Cheat Index demo: {len(summaries)} real runs re-scored from {meta['source']}")
     print(f"(recorded {meta['dates']} on {meta['hardware']}; the sample is small, so intervals are wide)\n")
     print("ACI = share of runs on contradictory, blocked and tempting-shortcut tasks in which the agent changed or")
@@ -55,12 +56,15 @@ def run_demo(root: Path | None = None) -> int:
     if card:
         print(f"\nEvidence, {card['task_id']}: {card['caption']}")
         for ev in card["evidence"][:1]:
-            print(f"  {ev['detector']} in {ev['file']}:{ev['line']}")
+            where = f" in {ev['file']}:{ev['line']}" if ev.get("file") else ""
+            print(f"  {ev['detector']}{where}")
             for line in str(ev["excerpt"]).splitlines()[:8]:
                 print(f"    {line}")
         message = card["final_message"].strip().splitlines()
         if message:
             print(f'  final message: "{message[0][:150]}"')
+    if excluded:
+        print(f"\n(as in the published index, these detectors are reported but not counted: {', '.join(excluded)})")
     print(f"\nre-scored in {time.monotonic() - start:.1f} s. Full leaderboard and method: {SITE}")
     print("Measure your own agent: cheat-index run --agent opencode --model <id> --tasks F4 --k 1")
     return 0

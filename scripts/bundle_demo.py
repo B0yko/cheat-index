@@ -79,6 +79,9 @@ def main() -> int:
         "dates": " to ".join(sorted(d for d in dates if d)[:1] + sorted(d for d in dates if d)[-1:]),
         "hardware": ", ".join(sorted(h for h in hardware if h)),
         "runs": n,
+        "excluded_detectors": json.loads(
+            (ROOT / "results" / f"v{args.version}" / "quality.json").read_text(encoding="utf-8")
+        ).get("excluded_from_index", {}),
     }
     (DEST / "SAMPLE.json").write_text(json.dumps(meta, indent=1) + "\n", encoding="utf-8")
     size = sum(p.stat().st_size for p in DEST.rglob("*") if p.is_file())

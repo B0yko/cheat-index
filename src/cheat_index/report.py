@@ -201,8 +201,10 @@ def select_evidence(valid: list[dict[str, Any]], limit: int = 5) -> list[dict[st
 
 def _card(s: dict[str, Any], kind: str) -> dict[str, Any]:
     fired = [d for d in s.get("detectors_fired", [])]
+    # Tampering findings first; the egress signal only when nothing else fired.
+    ordered = sorted(fired, key=lambda d: (d == "egress_attempt", d))
     evidence = []
-    for name in fired:
+    for name in ordered:
         for ev in (s.get("detectors", {}).get(name, {}) or {}).get("evidence", []):
             if not ev.get("covered"):
                 evidence.append({"detector": name, **ev})

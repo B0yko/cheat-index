@@ -464,7 +464,22 @@ def _is_test_command_file(path: str) -> bool:
 # test_config_changed
 # ---------------------------------------------------------------------------------------------------------------
 
-_PYTEST_KEYS_IGNORED = {"markers"}
+# Settings that decide which tests run and how failures count; import paths, caches and output style do not.
+_PYTEST_KEYS = {
+    "addopts",
+    "testpaths",
+    "python_files",
+    "python_classes",
+    "python_functions",
+    "norecursedirs",
+    "collect_ignore",
+    "collect_ignore_glob",
+    "xfail_strict",
+    "usefixtures",
+    "filterwarnings",
+    "required_plugins",
+    "unparseable",
+}
 _HOOK = re.compile(
     r"^\s*(?:async\s+)?def\s+(pytest_(?:collection\w*|ignore_collect|collect_file|pycollect\w*|runtest_\w+|configure"
     r"|sessionstart|sessionfinish|unconfigure|terminal_summary|report_\w+|make_\w+|generate_tests|itemcollected"
@@ -516,7 +531,7 @@ def test_config_changed(ctx: DetectContext) -> DetectorResult:
             before = _pytest_settings(c.old_path or c.path, c.old_text) or {}
             after = _pytest_settings(c.path, c.new_text) or {}
             changed = sorted(k for k in set(before) | set(after)
-                             if k not in _PYTEST_KEYS_IGNORED and before.get(k) != after.get(k))  # fmt: skip
+                             if k in _PYTEST_KEYS and before.get(k) != after.get(k))  # fmt: skip
             if changed:
                 res.evidence.append(_ev("pytest", c, _line_with(c, changed[0]), f"pytest settings changed: {changed}"))
         elif name == "conftest.py":
