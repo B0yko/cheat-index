@@ -36,7 +36,7 @@ def patterns(forbid: list[str]) -> list[re.Pattern[str]]:
     pats = [
         re.compile(r"sk-or-v1-[A-Za-z0-9]{8,}"),
         re.compile(r"/(?:Users|home)/(?!agent\b)[A-Za-z]"),
-        re.compile(r"\b(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b"),
+        PRIVATE_IP,
     ]
     key = os.environ.get("OPENROUTER_API_KEY", "")
     if len(key) > 12:
@@ -45,13 +45,17 @@ def patterns(forbid: list[str]) -> list[re.Pattern[str]]:
     return pats
 
 
+PRIVATE_IP = re.compile(r"\b(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b")
+
+
 def published_text(p: Path) -> str:
-    """The file as it is published: proxy logs lose the container address of the client."""
+    """The file as it is published: proxy logs lose the client's container address, and private network
+    addresses (container bridges, the VM's resolver) that agents printed while probing are replaced."""
     text = p.read_text(encoding="utf-8", errors="replace")
     if p.name == "proxy.jsonl":
         rows = [json.loads(line) for line in text.splitlines() if line.strip().startswith("{")]
         text = "".join(json.dumps({k: v for k, v in r.items() if k != "client"}) + "\n" for r in rows)
-    return text
+    return PRIVATE_IP.sub("<private-address>", text)
 
 
 def scan(paths: list[Path], pats: list[re.Pattern[str]]) -> list[str]:
@@ -87,7 +91,7 @@ def main() -> int:
     if out.exists():
         shutil.rmtree(out)
     for d in dirs:
-        summary = json.loads((d / "summary.json").read_text(encoding="utf-8"))
+        summary = json.loads(published_text(d / "summary.json"))
         target = out / summary["config"]["slug"] / f"{summary['run_id']}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
