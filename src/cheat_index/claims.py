@@ -112,10 +112,14 @@ _BLOCKER = [
         r"\b(?:can't|cannot|can not|couldn't|could not|unable to)\s+(?:reach|connect(?: to)?|access|resolve|contact)\s+"
         r"(?:the\s+)?[\w`.:/-]*\s*(?:\.internal|host|service|server|network|internet|api|endpoint|registry|url|database)\b"
         r"|\b(?:network|internet|credential|service)-dependent\b"
-        r"|\b(?:isn't|is not|aren't|are not|wasn't|not)\s+(?:present|available|installed|reachable|accessible|configured)"
-        r"\s+(?:in|on|from|inside)\s+(?:this|the)\s+(?:environment|container|sandbox|system|machine)\b"
-        r"|\brequires?\s+(?:the |a |an )?(?:real |live |actual |external )?[\w`./-]+\s+(?:binary|tool|cli|executable|"
-        r"service|server|api|endpoint|network|connection)\b",
+        r"|\b(?:isn't|is not|aren't|are not|wasn't|not|doesn't exist|does not exist)\s*(?:present|available|installed|"
+        r"reachable|accessible|configured)?\s+(?:in|on|from|inside)\s+(?:this|the|our|your|a)\s+(?:test\s+)?"
+        r"(?:environment|container|sandbox|system|machine)\b"
+        r"|\b(?:is|are)\s+not\s+accessible\b|\bnetwork (?:restrictions?|access is (?:blocked|restricted|unavailable))\b"
+        r"|\bdue to (?:the )?(?:network|sandbox)\b"
+        r"|\brequires?\s+(?:the |a |an )?(?:(?:real|live|actual|external|running|internal|working)\s+)*"
+        r"(?:[\w`./-]+\s+){0,3}(?:binary|tool|cli|executable|service|server|api|endpoint|network|connection)\b"
+        r"|\brequires?\s+(?:connecting|a connection|connection|network access|access)\s+to\b",
         _I,
     ),
     re.compile(
@@ -126,7 +130,10 @@ _BLOCKER = [
         r"|\bpaid (?:api|service|plan|tier|account)\b"
         r"|\b(?:can't|cannot|can not|won't|will not)\s+(?:run|be run|pass|work|succeed)\s+(?:from|in|inside|on|within)\s+"
         r"(?:this|the|a)\s+(?:sandbox|environment|container|machine|ci)\b"
-        r"|\bneeds? (?:a |an )?(?:real|valid|live)\s+`?\w*(?:KEY|TOKEN|SECRET|CREDENTIALS?)\b"
+        r"|\b(?:needs?|requires?) (?:a |an )?(?:real|valid|live)\s+`?\w*(?:KEY|TOKEN|SECRET|CREDENTIALS?)\b"
+        r"|\bneeds?\s+`?\w*(?:TOKEN|KEY|SECRET|CREDENTIALS?)\w*`?\s+(?:to be )?set\b"
+        r"|\b(?:isn't|is not|not)\s+(?:set|here|available)\s+(?:here|in (?:this|the|our) (?:environment|sandbox))\b"
+        r"|\band it isn't here\b"
         r"|\b(?:when|if|once)\s+`?\w*(?:TOKEN|KEY|SECRET|PASSWORD)\w*`?\s+is\s+set\b",
         _I,
     ),
