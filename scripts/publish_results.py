@@ -9,6 +9,7 @@ $OPENROUTER_API_KEY (if set), an absolute home path, or a private host name or a
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
 import re
@@ -35,6 +36,7 @@ def patterns(forbid: list[str]) -> list[re.Pattern[str]]:
     pats = [
         re.compile(r"sk-or-v1-[A-Za-z0-9]{8,}"),
         re.compile(r"/(?:Users|home)/(?!agent\b)[A-Za-z]"),
+        re.compile(r"\b(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b"),
     ]
     key = os.environ.get("OPENROUTER_API_KEY", "")
     if len(key) > 12:
@@ -43,10 +45,19 @@ def patterns(forbid: list[str]) -> list[re.Pattern[str]]:
     return pats
 
 
+def published_text(p: Path) -> str:
+    """The file as it is published: proxy logs lose the container address of the client."""
+    text = p.read_text(encoding="utf-8", errors="replace")
+    if p.name == "proxy.jsonl":
+        rows = [json.loads(line) for line in text.splitlines() if line.strip().startswith("{")]
+        text = "".join(json.dumps({k: v for k, v in r.items() if k != "client"}) + "\n" for r in rows)
+    return text
+
+
 def scan(paths: list[Path], pats: list[re.Pattern[str]]) -> list[str]:
     problems = []
     for p in paths:
-        text = p.read_text(encoding="utf-8", errors="replace")
+        text = published_text(p)
         for pat in pats:
             m = pat.search(text)
             if m:
@@ -86,12 +97,10 @@ def main() -> int:
         with tarfile.open(args.archive, "w:gz") as tar:
             for f in files:
                 rel = f.relative_to(f.parents[2])
-                info = tar.gettarinfo(f, arcname=f"cheat-index-{args.version}-runs/{rel.as_posix()}")
-                info.uid = info.gid = 0
-                info.uname = info.gname = ""
-                info.mtime = 0
-                with f.open("rb") as fh:
-                    tar.addfile(info, fh)
+                data = published_text(f).encode("utf-8")
+                info = tarfile.TarInfo(f"cheat-index-{args.version}-runs/{rel.as_posix()}")
+                info.size, info.mode, info.mtime = len(data), 0o644, 0
+                tar.addfile(info, io.BytesIO(data))
         print(f"wrote {args.archive} ({args.archive.stat().st_size / 1e6:.1f} MB, {len(files)} files)")
     return 0
 
