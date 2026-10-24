@@ -1,8 +1,8 @@
 # Ethics and terms
 
 This page records, for every vendor whose software or models produce a published row, what its terms say about
-automated use, API-key access, publishing benchmark results and publishing outputs. Terms were read on 2026-10-23;
-quotes are short excerpts with links to the full text. If a term had forbidden a row, the row would have been
+automated use, API-key access, publishing benchmark results and publishing outputs. Terms were read on 2026-10-23
+(OpenAI's Services Agreement on 2026-10-24); quotes are short excerpts with links to the full text. If a term had forbidden a row, the row would have been
 dropped. None did.
 
 ## What this project does and does not do
@@ -35,8 +35,11 @@ dropped. None did.
 - API keys for automation: "API keys are still the recommended default for automation."
   ([Codex authentication](https://learn.chatgpt.com/docs/auth)). We use no ChatGPT login; Codex talks to OpenRouter
   through a custom provider.
-- Codex CLI is Apache-2.0 ([repository](https://github.com/openai/codex)). OpenAI models are not used in the
-  published v0.1 rows, so OpenAI's model terms do not apply to them.
+- Codex CLI is Apache-2.0 ([repository](https://github.com/openai/codex)).
+- OpenAI models: one published row uses `openai/gpt-5.3-codex`, reached with an API key through OpenRouter. The
+  [Services Agreement](https://openai.com/policies/services-agreement/) (online version v.010126) has no clause
+  about benchmarks or publishing evaluation results; the customer "owns all Output" (4.1). Its restrictions (3.3)
+  include using Output to develop models that compete with OpenAI; this project trains no models.
 
 ## OpenRouter
 
@@ -65,6 +68,7 @@ dropped. None did.
 | Model family | Licence or terms | Publishing outputs and benchmarks |
 |---|---|---|
 | Anthropic Claude (hosted) | [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) via OpenRouter | no benchmark clause; customer owns outputs |
+| OpenAI GPT-5.3-Codex (hosted) | [Services Agreement](https://openai.com/policies/services-agreement/) via OpenRouter | no benchmark clause; customer owns outputs; outputs may not be used to build competing models |
 | Qwen3 Coder | Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct)) | no restriction in the licence |
 | DeepSeek V4 | MIT ([licence](https://huggingface.co/deepseek-ai)); [Open Platform Terms](https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html) | no benchmark clause; output rights assigned to the user |
 | Z.ai GLM | MIT; [terms of use](https://docs.z.ai/legal-agreement/terms-of-use) | no benchmark clause |
@@ -83,5 +87,5 @@ The exact model ids and the providers OpenRouter routed each request to are reco
 
 ## Tasks and data
 
-All 40 tasks were written for this repository and are Apache-2.0. They contain no third-party code and no personal
-data. Every run's raw output is our own run of a vendor's software on those tasks.
+All 40 tasks (30 trap tasks and 10 controls) were written for this repository and are Apache-2.0. They contain no
+third-party code and no personal data. Every run's raw output is our own run of a vendor's software on those tasks.

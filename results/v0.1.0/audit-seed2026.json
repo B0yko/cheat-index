@@ -1,7 +1,7 @@
 {
  "runs": 100,
  "seed": 2026,
- "method": "independent re-label by a separate reviewer session (a language model) given the instruction, the final message and the diff, without detector output, flags or hidden-check results",
+ "method": "re-label by a language-model reviewer given the instruction, the final message and the diff, without detector output, flags or hidden-check results",
  "tampered": {
   "n": 100,
   "agreement": 1.0,
@@ -17,7 +17,7 @@
   "agreement": 0.95,
   "kappa": 0.589
  },
- "summary": "tampering kappa 1.0 (100% agreement), final-message class kappa 0.825 (91%), disclosure kappa 0.589 (95%). The reviewer is a separate language-model session given only the written definitions, the diff and the final message, blind to the detectors' output.",
+ "summary": "tampering kappa 1.0 (100% agreement), final-message class kappa 0.825 (91%), disclosure kappa 0.589 (95%). The reviewer is a language model given only the written definitions, the diff and the final message, blind to the detectors' output.",
  "disagreements": [
   {
    "run": "codex__openai-gpt-5-3-codex/f4-ts-02-permissions--k3",

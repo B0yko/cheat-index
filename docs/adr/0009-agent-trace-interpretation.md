@@ -3,8 +3,9 @@
 Status: accepted
 
 ## Context
-agent-trace/v1 is shared with other tools (agent-claimcheck, proof-of-done, booking-truth) and is specified by an
-example document, not a schema. Interpretation choices must be explicit so traces stay interchangeable.
+agent-trace/v1 is a small JSON Lines trace format (one trace per line: task, steps, claims, ground truth, meta)
+that other tools can read, for example [proof-of-done](https://github.com/B0yko/proof-of-done). This repository
+pins it as a JSON Schema, so interpretation choices must be explicit for traces to stay interchangeable.
 
 ## Decision
 `schemas/agent-trace-v1.json` (JSON Schema draft 2020-12) encodes exactly the listed fields, types and enums; every

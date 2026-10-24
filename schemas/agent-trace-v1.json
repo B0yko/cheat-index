@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/B0yko/cheat-index/blob/main/schemas/agent-trace-v1.json",
   "title": "agent-trace/v1",
-  "description": "Shared agent trace format (JSON Lines, one trace per line). Fields, types and enums follow the shared example document. Every listed key is required except ground_truth.details. additionalProperties is closed everywhere except `meta` and the free-form `args`, `output`, `subject` and `details` objects. A breaking change would be agent-trace/v2.",
+  "description": "Shared agent trace format (JSON Lines, one trace per line). Fields, types and enums are fixed by this schema (see docs/adr/0009). Every listed key is required except ground_truth.details. additionalProperties is closed everywhere except `meta` and the free-form `args`, `output`, `subject` and `details` objects. A breaking change would be agent-trace/v2.",
   "type": "object",
   "additionalProperties": false,
   "required": [

@@ -41,7 +41,9 @@ claude -p "<instruction>" --output-format stream-json --verbose \
   `~/.claude/settings.json`.
 - Not used: `--max-budget-usd`. It prices OpenRouter model ids with Claude Code's own price table and stopped a
   trivial run after one turn in our contract check; the gateway enforces the budget instead.
-- Rules file: `CLAUDE.md` at the repository root. Hooks: merged into `~/.claude/settings.json`.
+- Rules file: `CLAUDE.md` at the repository root. Hooks: `--hooks DIR` must contain `claude-code.json` (settings
+  such as a `hooks` block), which is merged into `~/.claude/settings.json`; every other file in DIR is copied to
+  `~/.claude/hooks/` under the same relative path, so hook commands can call `~/.claude/hooks/<script>`.
 
 ## Codex CLI (`@openai/codex`)
 
@@ -59,7 +61,8 @@ codex exec --json --skip-git-repo-check --ephemeral \
 - `--dangerously-bypass-approvals-and-sandbox` is the documented mode for environments that are sandboxed from the
   outside, which ours is.
 - No turn or cost cap flag exists in this version; the gateway's cap and the wall clock apply.
-- Rules file: `AGENTS.md` at the repository root. Hooks: `~/.codex/hooks.json`.
+- Rules file: `AGENTS.md` at the repository root. Hooks: `--hooks DIR` must contain `codex-hooks.json`, which is
+  written to `~/.codex/hooks.json`; nothing else in DIR is copied.
 
 ## OpenCode (`opencode-ai`)
 
@@ -73,7 +76,8 @@ opencode run --format json -m openrouter/<openrouter model id> --auto "<instruct
   `allow` (what `ask` does in `opencode run` is not documented); the `build` agent's `steps` set to the turn cap.
 - Switched off: `OPENCODE_DISABLE_AUTOUPDATE`, `OPENCODE_DISABLE_MODELS_FETCH`, `OPENCODE_DISABLE_LSP_DOWNLOAD`,
   `OPENCODE_DISABLE_DEFAULT_PLUGINS`, `OPENCODE_DISABLE_CLAUDE_CODE` (stops it from reading Claude Code files).
-- Rules file: `AGENTS.md`. Hooks: plugins copied to `~/.config/opencode/plugins/`.
+- Rules file: `AGENTS.md`. Hooks: `--hooks DIR` must contain an `opencode-plugins/` directory; its files are copied
+  to `~/.config/opencode/plugins/`.
 
 ## GitHub Copilot CLI (`@github/copilot`)
 
@@ -89,6 +93,7 @@ copilot -p "<instruction>" --output-format json --allow-all-tools --allow-all-pa
 - No turn or cost cap flag exists; the gateway's cap and the wall clock apply.
 - Rules file: `AGENTS.md`. Note that Copilot CLI also merges `CLAUDE.md` and `GEMINI.md`; our task repositories
   contain none of them, and the rules experiment writes only the agent's own file.
+- Hooks: not supported in v0.1; `run --agent copilot --hooks DIR` stops with an error.
 
 ## Optional adapters (no published row in v0.1)
 

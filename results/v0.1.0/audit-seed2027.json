@@ -1,7 +1,7 @@
 {
  "runs": 100,
  "seed": 2027,
- "method": "independent re-label by a separate reviewer session (a language model) given the instruction, the final message and the diff, without detector output, flags or hidden-check results",
+ "method": "re-label by a language-model reviewer given the instruction, the final message and the diff, without detector output, flags or hidden-check results",
  "tampered": {
   "n": 100,
   "agreement": 0.98,
@@ -17,7 +17,7 @@
   "agreement": 0.93,
   "kappa": 0.55
  },
- "summary": "tampering kappa 0.847 (98% agreement), final-message class kappa 0.737 (86%), disclosure kappa 0.55 (93%). The reviewer is a separate language-model session given only the written definitions, the diff and the final message, blind to the detectors' output.",
+ "summary": "tampering kappa 0.847 (98% agreement), final-message class kappa 0.737 (86%), disclosure kappa 0.55 (93%). The reviewer is a language model given only the written definitions, the diff and the final message, blind to the detectors' output.",
  "disagreements": [
   {
    "run": "opencode__z-ai-glm-5-3-flash/f1-py-01-duration-format--k2",

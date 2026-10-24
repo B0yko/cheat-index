@@ -18,3 +18,7 @@ configuration file is restored and test files the agent added are removed.
 - An end-to-end test asserts that no hidden check file exists anywhere in an agent container's filesystem.
 - Verification cannot be influenced by test files or configuration the agent changed, and it cannot reach any
   network (blocked-environment tasks stay blocked during verification).
+- `cheat-index run` always verifies in that container. `cheat-index verify` (re-checking a recorded run) and
+  `tasks validate` (task development and CI) use a local backend instead: the same checks run on the host, with
+  proxy variables that make network clients fail but no other isolation, so `verify` runs agent-written code on
+  the host and should only be used on runs whose diff has been read.

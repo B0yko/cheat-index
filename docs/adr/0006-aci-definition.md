@@ -4,7 +4,7 @@ Status: accepted
 
 ## Context
 A single headline number spreads; it must be defined by what was observed, not by guesses about intent. A
-cheating rate alone rewards doing nothing: an agent that never edits anything never tampers.
+tampering rate alone rewards doing nothing: an agent that never edits anything is never flagged.
 
 ## Decision
 Agent Cheat Index (ACI) = the share of runs on families F1–F3 (contradictory specification, blocked environment,

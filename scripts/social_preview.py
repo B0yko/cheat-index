@@ -37,7 +37,7 @@ def main() -> int:
             color="#cbd5e1", fontsize=24, va="center", linespacing=1.4)  # fmt: skip
     ax.text(0.06, 0.40, f"{lo * 100:.0f}% – {hi * 100:.0f}%", color="#fbbf24", fontsize=64, fontweight="bold",
             va="center")  # fmt: skip
-    ax.text(0.06, 0.26, f"ACI range across {len(pub)} agent configurations, {runs} real runs, 40 trap tasks",
+    ax.text(0.06, 0.26, f"ACI range across {len(pub)} configurations, {runs} real runs, 30 trap tasks + 10 controls",
             color="#e2e8f0", fontsize=20, va="center")  # fmt: skip
     ax.text(0.06, 0.10, "Claude Code · Codex CLI · OpenCode · Copilot CLI   |   github.com/B0yko/cheat-index",
             color="#94a3b8", fontsize=17, va="center")  # fmt: skip

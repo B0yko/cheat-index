@@ -12,7 +12,8 @@ flags, detector findings with short evidence excerpts, final message, hidden-che
 plus the detector and classifier quality report. Attached to the GitHub Release as one compressed archive: every
 run directory (raw stream, stderr, final diff, changes, proxy log, verification output, gateway usage log), after a
 scan for secrets, host names and absolute paths. `scripts/check_generated.py --check` runs in CI and fails when the
-README tables, charts or site differ from what the committed summaries produce.
+README's generated blocks, `results/v<version>/leaderboard.json`, the chart data or the cost model differ from what
+the committed summaries produce. The site is not checked in; the Pages workflow renders it from the same summaries.
 
 ## Consequences
 - Every published number can be recomputed from git alone; every verdict can be re-derived from the release asset

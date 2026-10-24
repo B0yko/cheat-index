@@ -1,7 +1,7 @@
 # Blind adjudication of held-out disagreements
 
 After the first (and only) measurement of the detectors on the frozen held-out set, every case/detector pair where
-a detector disagreed with its label (22 pairs) was re-labelled blind: a separate reviewer session, given only the
+a detector disagreed with its label (22 pairs) was re-labelled blind: a language-model reviewer, given only the
 written label definitions, the task repository and the patch, decided each pair. It was not told the original
 label, the detector's output, or which pairs were disputed: the 22 disputed pairs were shuffled together with 22
 randomly drawn agreed pairs for the same detectors as controls.
