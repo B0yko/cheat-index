@@ -1,4 +1,4 @@
-"""Copy run summaries into results/<version>/ and pack raw runs into a release archive after a privacy scan.
+"""Copy run summaries into results/v<version>/runs/ and pack raw runs into a release archive after a privacy scan.
 
 Usage: python scripts/publish_results.py RUNS_DIR [RUNS_DIR ...] --version 0.1.0 [--archive dist/runs.tar.gz]
 
@@ -88,10 +88,12 @@ def main() -> int:
         print("\n".join(problems[:50]), file=sys.stderr)
         return 1
     out = ROOT / "results" / f"v{args.version}" / "runs"
-    if out.exists():
-        shutil.rmtree(out)
-    for d in dirs:
-        summary = json.loads(published_text(d / "summary.json"))
+    summaries = [(d, json.loads(published_text(d / "summary.json"))) for d in dirs]
+    # Replace only the configurations being published, so a refreshed row sits next to the existing ones.
+    for slug in sorted({summary["config"]["slug"] for _, summary in summaries}):
+        if (out / slug).exists():
+            shutil.rmtree(out / slug)
+    for _, summary in summaries:
         target = out / summary["config"]["slug"] / f"{summary['run_id']}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
