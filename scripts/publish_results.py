@@ -87,7 +87,7 @@ def main() -> int:
     if problems:
         print("\n".join(problems[:50]), file=sys.stderr)
         return 1
-    out = ROOT / "results" / args.version / "runs"
+    out = ROOT / "results" / f"v{args.version}" / "runs"
     if out.exists():
         shutil.rmtree(out)
     for d in dirs:

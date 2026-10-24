@@ -24,7 +24,7 @@ BLOCK = re.compile(r"(<!-- generated:(?P<name>[\w-]+) -->\n)(?P<body>.*?)(<!-- /
 
 
 def load(version: str) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    results = ROOT / "results" / version
+    results = ROOT / "results" / f"v{version}"
     quality_path = results / "quality.json"
     quality = json.loads(quality_path.read_text(encoding="utf-8")) if quality_path.is_file() else {}
     audit_path = results / "audit.json"
@@ -32,7 +32,7 @@ def load(version: str) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     board = build_leaderboard(
         load_summaries([results / "runs"]),
         excluded_detectors=quality.get("excluded_from_index") or {},
-        source=f"results/{version}",
+        source=f"results/v{version}",
     )
     return board, quality, audit
 
@@ -203,7 +203,7 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
 
 
 def block_quickstart(version: str) -> str:
-    path = ROOT / "results" / version / "quickstart.json"
+    path = ROOT / "results" / f"v{version}" / "quickstart.json"
     if not path.is_file():
         return "The quickstart command above has not been measured yet.\n"
     q = json.loads(path.read_text(encoding="utf-8"))
@@ -242,7 +242,7 @@ def main() -> int:
     args = ap.parse_args()
     board, quality, audit = load(args.version)
     problems: list[str] = []
-    board_path = ROOT / "results" / args.version / "leaderboard.json"
+    board_path = ROOT / "results" / f"v{args.version}" / "leaderboard.json"
     board_text = json.dumps(board, indent=1, ensure_ascii=False) + "\n"
     readme_path = ROOT / "README.md"
     readme = readme_path.read_text(encoding="utf-8")

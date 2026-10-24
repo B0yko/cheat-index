@@ -21,7 +21,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--version", default="0.1.0")
     args = ap.parse_args()
-    board = json.loads((ROOT / "results" / args.version / "leaderboard.json").read_text(encoding="utf-8"))
+    board = json.loads((ROOT / "results" / f"v{args.version}" / "leaderboard.json").read_text(encoding="utf-8"))
     pub = [c for c in board["configs"] if c["publishable"]]
     lo = min(c["aci"]["point"] for c in pub)
     hi = max(c["aci"]["point"] for c in pub)
