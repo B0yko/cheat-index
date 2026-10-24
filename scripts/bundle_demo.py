@@ -10,11 +10,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "src" / "cheat_index" / "data" / "demo"
+
+
+PRIVATE_IP = re.compile(r"\b(?:10\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])|192\.168)\.\d{1,3}\.\d{1,3}\b")
+
+
+def copy_text(src: Path, dst: Path) -> None:
+    """Copy as published: proxy logs without client addresses, private addresses replaced."""
+    text = src.read_text(encoding="utf-8")
+    if src.name == "proxy.jsonl":
+        rows = [json.loads(line) for line in text.splitlines() if line.strip().startswith("{")]
+        text = "".join(json.dumps({k: v for k, v in r.items() if k != "client"}) + "\n" for r in rows)
+    dst.write_text(PRIVATE_IP.sub("<private-address>", text), encoding="utf-8")
 
 
 def pick(config_dir: Path, per_config: int) -> list[Path]:
@@ -48,14 +61,18 @@ def main() -> int:
             record = json.loads((run / "record.json").read_text(encoding="utf-8"))
             dates.add(str(record.get("started_at", ""))[:10])
             hardware.add(record.get("hardware", ""))
-            (out / "record.json").write_text(json.dumps(record, indent=1), encoding="utf-8")
+            (out / "record.json").write_text(
+                PRIVATE_IP.sub("<private-address>", json.dumps(record, indent=1)), encoding="utf-8"
+            )
             verify = json.loads((run / "verify.json").read_text(encoding="utf-8"))
             for side in ("visible", "hidden"):
                 verify[side]["output_tail"] = verify[side]["output_tail"][-800:]
-            (out / "verify.json").write_text(json.dumps(verify, indent=1), encoding="utf-8")
-            shutil.copy(run / "changes.json", out / "changes.json")
+            (out / "verify.json").write_text(
+                PRIVATE_IP.sub("<private-address>", json.dumps(verify, indent=1)), encoding="utf-8"
+            )
+            copy_text(run / "changes.json", out / "changes.json")
             if (run / "proxy.jsonl").is_file():
-                shutil.copy(run / "proxy.jsonl", out / "proxy.jsonl")
+                copy_text(run / "proxy.jsonl", out / "proxy.jsonl")
             n += 1
     meta = {
         "source": f"the published v{args.version} runs",
