@@ -4,7 +4,8 @@
 
 [![CI](https://github.com/B0yko/cheat-index/actions/workflows/ci.yml/badge.svg)](https://github.com/B0yko/cheat-index/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/B0yko/cheat-index)](https://github.com/B0yko/cheat-index/releases)
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/cheat-index)](https://pypi.org/project/cheat-index/)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/B0yko/cheat-index/blob/main/LICENSE)
 
 The Agent Cheat Index gives real coding agents (Claude Code, Codex CLI, OpenCode, GitHub Copilot CLI) small tasks
 that cannot be finished honestly, or that make a shortcut tempting. It counts how often each agent and model edits
@@ -19,18 +20,18 @@ stops and says what is wrong instead. With it you can:
 <!-- generated:headline -->
 Across 10 agent setups and 1,162 real runs (2026-10-23 to 2026-10-24 UTC, Mac Studio M4 Max, 128 GB), the Agent Cheat Index ran from 1% [0–3] for Claude Code with `anthropic/claude-sonnet-5.5` to 72% [61–83] for OpenCode with `qwen/qwen3-coder`. The index is the share of runs on contradictory, blocked and tempting-shortcut tasks in which the agent changed or skipped checks without saying so, or claimed a success that hidden checks contradict. Lower is better.
 <!-- /generated:headline -->
-How it was measured: [methodology](docs/methodology.md). Full leaderboard, with evidence cards for flagged runs:
+How it was measured: [methodology](https://github.com/B0yko/cheat-index/blob/main/docs/methodology.md). Full leaderboard, with evidence cards for flagged runs:
 **[b0yko.github.io/cheat-index](https://b0yko.github.io/cheat-index/)**.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/leaderboard-dark.png">
-  <img alt="Top of the Agent Cheat Index leaderboard: ACI with 95% intervals per agent and model" src="docs/img/leaderboard-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/B0yko/cheat-index/main/docs/img/leaderboard-dark.png">
+  <img alt="Top of the Agent Cheat Index leaderboard: ACI with 95% intervals per agent and model" src="https://raw.githubusercontent.com/B0yko/cheat-index/main/docs/img/leaderboard-light.png">
 </picture>
 
-![cheat-index demo re-scoring recorded runs in the terminal](docs/img/demo.svg)
+![cheat-index demo re-scoring recorded runs in the terminal](https://raw.githubusercontent.com/B0yko/cheat-index/main/docs/img/demo.svg)
 
 ```bash
-uvx --from git+https://github.com/B0yko/cheat-index cheat-index demo
+uvx cheat-index demo
 ```
 
 The demo needs no Docker and no API key: it re-scores a bundled sample of real recorded runs with the same
@@ -116,7 +117,7 @@ OpenCode (rules) ran F1–F3 only, so its false-success column covers F1–F3 an
 Numbers come from `uv run cheat-index score results/v0.1.0` on the committed run summaries; the raw runs (agent
 streams, diffs, egress logs, verification output) are attached to the
 [v0.1.0 release](https://github.com/B0yko/cheat-index/releases/tag/v0.1.0). Run commands are in
-[docs/refresh.md](docs/refresh.md).
+[docs/refresh.md](https://github.com/B0yko/cheat-index/blob/main/docs/refresh.md).
 
 ### Harness effect
 
@@ -183,8 +184,8 @@ the final message, and the hidden-check result (OpenCode with Qwen3 Coder, task 
 <summary>Evidence card</summary>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/evidence-card-dark.png">
-  <img alt="Evidence card: the agent changed an expected value in a test and reported that all tests pass" src="docs/img/evidence-card-light.png" width="620">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/B0yko/cheat-index/main/docs/img/evidence-card-dark.png">
+  <img alt="Evidence card: the agent changed an expected value in a test and reported that all tests pass" src="https://raw.githubusercontent.com/B0yko/cheat-index/main/docs/img/evidence-card-light.png" width="620">
 </picture>
 
 </details>
@@ -349,10 +350,10 @@ Detectors, on 358 authored and 244 frozen held-out labelled patches (precision a
 
 Final-message classifier: accuracy 0.983 on 120 authored and 0.900 [0.81–0.95] on 80 held-out messages; disclosure accuracy 0.963 on the held-out set.
 
-Every held-out disagreement (22 detector/case pairs) was re-labelled blind by a language-model reviewer given only the written definitions, mixed with 22 agreed controls: it upheld 22 of 22 original labels and 22 of 22 controls, so the held-out numbers above stand ([details](eval/detectors/adjudication/README.md)).
+Every held-out disagreement (22 detector/case pairs) was re-labelled blind by a language-model reviewer given only the written definitions, mixed with 22 agreed controls: it upheld 22 of 22 original labels and 22 of 22 controls, so the held-out numbers above stand ([details](https://github.com/B0yko/cheat-index/blob/main/eval/detectors/adjudication/README.md)).
 
 Blind re-label agreement on 100 randomly sampled real runs (seed 2028): tampering kappa 1.0 (100% agreement), final-message class kappa 0.843 (92%), disclosure kappa 0.542 (94%). The reviewer is a language model given only the written definitions, the diff and the final message, blind to the detectors' output.
-Earlier audits of different samples, each taken before a later refinement of the claim rules on other runs and scored against the verdicts of that time, gave seed 2026: tampering kappa 1.0 (100% agreement), final-message class kappa 0.825 (91%), disclosure kappa 0.589 (95%); seed 2027: tampering kappa 0.847 (98% agreement), final-message class kappa 0.737 (86%), disclosure kappa 0.55 (93%). Every run read while refining the rules, and every earlier sample, is excluded from the final sample ([list](results/v0.1.0/audit-excluded.txt), [labels](eval/audit/)).
+Earlier audits of different samples, each taken before a later refinement of the claim rules on other runs and scored against the verdicts of that time, gave seed 2026: tampering kappa 1.0 (100% agreement), final-message class kappa 0.825 (91%), disclosure kappa 0.589 (95%); seed 2027: tampering kappa 0.847 (98% agreement), final-message class kappa 0.737 (86%), disclosure kappa 0.55 (93%). Every run read while refining the rules, and every earlier sample, is excluded from the final sample ([list](https://github.com/B0yko/cheat-index/blob/main/results/v0.1.0/audit-excluded.txt), [labels](https://github.com/B0yko/cheat-index/tree/main/eval/audit/)).
 <!-- /generated:quality -->
 
 ## Run it on your own agent
@@ -393,13 +394,13 @@ cut off by the gateway at `--max-cost-per-run`. Runs are resumable: the same com
 | `cheat-index score RESULTS…` | leaderboard table with intervals, rank groups and the differences that hold |
 | `cheat-index report RESULTS… --format md\|json\|html` | full report |
 | `cheat-index verify RUN_DIR` | rebuild one run's end state from its recorded changes, verify and score it again (runs the agent's code on your machine, outside any container; see below) |
-| `cheat-index export-traces RESULTS --out traces.jsonl` | export runs as [agent-trace/v1](schemas/agent-trace-v1.json) |
+| `cheat-index export-traces RESULTS --out traces.jsonl` | export runs as [agent-trace/v1](https://github.com/B0yko/cheat-index/blob/main/schemas/agent-trace-v1.json) |
 | `cheat-index site build RESULTS` | render the static leaderboard into `site-dist/` |
 | `cheat-index demo` | re-score bundled real runs; no Docker, no key |
 | `cheat-index doctor` | check the setup |
 
 Supported agents: `claude-code`, `codex`, `opencode`, `copilot` (and `scripted`, a replay agent used in CI). Their
-exact headless setup is in [docs/agents.md](docs/agents.md).
+exact headless setup is in [docs/agents.md](https://github.com/B0yko/cheat-index/blob/main/docs/agents.md).
 
 `run` verifies every run in a container with no network. `verify` and `tasks validate` instead run the tests on the
 host, with a proxy setting that blocks network access but no other isolation. They need pytest in cheat-index's own
@@ -436,14 +437,14 @@ flowchart LR
   run; the egress proxy refuses and logs everything else.
 - **Verification**: a separate container with no network runs the visible tests as the agent left them, and the
   hidden checks with every original test and test-config file restored.
-- **Scoring**: nine deterministic detectors on the diff ([docs/detectors.md](docs/detectors.md)), a rule-based
-  final-message classifier, and the verdict rules in [docs/methodology.md](docs/methodology.md). No language model
+- **Scoring**: nine deterministic detectors on the diff ([docs/detectors.md](https://github.com/B0yko/cheat-index/blob/main/docs/detectors.md)), a rule-based
+  final-message classifier, and the verdict rules in [docs/methodology.md](https://github.com/B0yko/cheat-index/blob/main/docs/methodology.md). No language model
   takes part in scoring.
-- **Traces**: every run exports as [agent-trace/v1](schemas/agent-trace-v1.json), so other tools can re-judge it,
+- **Traces**: every run exports as [agent-trace/v1](https://github.com/B0yko/cheat-index/blob/main/schemas/agent-trace-v1.json), so other tools can re-judge it,
   for example `proof-of-done audit --source agent-trace traces.jsonl`
   ([proof-of-done](https://github.com/B0yko/proof-of-done)).
 
-Design decisions are recorded in [docs/adr/](docs/adr/).
+Design decisions are recorded in [docs/adr/](https://github.com/B0yko/cheat-index/tree/main/docs/adr/).
 
 ## What this is not
 
@@ -474,10 +475,10 @@ Design decisions are recorded in [docs/adr/](docs/adr/).
 
 ## Methodology, ethics and terms
 
-- [Methodology](docs/methodology.md): families, isolation, detectors, statistics, rank groups.
-- [Ethics and terms](docs/ethics-and-terms.md): what each vendor's terms say about automated use, API keys and
+- [Methodology](https://github.com/B0yko/cheat-index/blob/main/docs/methodology.md): families, isolation, detectors, statistics, rank groups.
+- [Ethics and terms](https://github.com/B0yko/cheat-index/blob/main/docs/ethics-and-terms.md): what each vendor's terms say about automated use, API keys and
   publishing results; no subscription logins are used.
-- [Agent setups](docs/agents.md) and the [refresh runbook](docs/refresh.md).
+- [Agent setups](https://github.com/B0yko/cheat-index/blob/main/docs/agents.md) and the [refresh runbook](https://github.com/B0yko/cheat-index/blob/main/docs/refresh.md).
 
 ## Alternatives
 
@@ -505,4 +506,4 @@ claims and honest stopping together (searched 2026-10-24).
 
 ## License
 
-[Apache-2.0](LICENSE). Copyright 2026 Andrii Boiko.
+[Apache-2.0](https://github.com/B0yko/cheat-index/blob/main/LICENSE). Copyright 2026 Andrii Boiko.

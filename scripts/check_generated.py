@@ -21,6 +21,8 @@ from typing import Any
 from cheat_index.report import build_leaderboard, load_summaries, markdown_table, ordered_statements, pct
 
 ROOT = Path(__file__).resolve().parents[1]
+# Absolute links, so the README also renders on PyPI.
+REPO = "https://github.com/B0yko/cheat-index"
 BLOCK = re.compile(r"(<!-- generated:(?P<name>[\w-]+) -->\n)(?P<body>.*?)(<!-- /generated:(?P=name) -->)", re.DOTALL)
 
 
@@ -261,7 +263,8 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
             f"by a language-model reviewer given only the written definitions, mixed with "
             f"{adj['control']['pairs']} agreed controls: it upheld {adj['disputed']['upheld']} of "
             f"{adj['disputed']['pairs']} original labels and {adj['control']['upheld']} of {adj['control']['pairs']} "
-            "controls, so the held-out numbers above stand ([details](eval/detectors/adjudication/README.md))."
+            f"controls, so the held-out numbers above stand ([details]({REPO}/blob/main/eval/detectors/adjudication/"
+            "README.md))."
         )
     if audit:
         lines.append(
@@ -278,7 +281,7 @@ def block_quality(quality: dict[str, Any], audit: dict[str, Any]) -> str:
                 "Earlier audits of different samples, each taken before a later refinement of the claim rules on "
                 "other runs and scored against the verdicts of that time, gave " + "; ".join(parts) + ". Every run "
                 "read while refining the rules, and every earlier sample, is excluded from the final sample "
-                "([list](results/v0.1.0/audit-excluded.txt), [labels](eval/audit/))."
+                f"([list]({REPO}/blob/main/results/v0.1.0/audit-excluded.txt), [labels]({REPO}/tree/main/eval/audit/))."
             )
     return "\n".join(lines) + "\n"
 
