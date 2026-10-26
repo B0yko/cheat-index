@@ -504,6 +504,12 @@ claims and honest stopping together (searched 2026-10-24).
 - Gemini CLI and Cursor CLI rows with vendor keys, labelled as such.
 - More tasks and languages, and detectors improved against a new frozen held-out set.
 
+## Author
+
+Created by [Andrii Boiko](https://boiko.ai/).
+
+[Project overview](https://boiko.ai/work/cheat-index/) · [LinkedIn](https://www.linkedin.com/in/andriyboyko/)
+
 ## License
 
 [Apache-2.0](https://github.com/B0yko/cheat-index/blob/main/LICENSE). Copyright 2026 Andrii Boiko.
