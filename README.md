@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/B0yko/cheat-index/main/.github/social-preview.png" alt="Agent Cheat Index: did it fix the code or the tests?" width="880">
+</p>
+
 # Agent Cheat Index
 
 **Your coding agent says "all tests pass". Did it fix the code, or the tests?**
